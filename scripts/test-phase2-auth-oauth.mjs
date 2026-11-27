@@ -166,10 +166,11 @@ async function testAuthPagesUseEmailPassword() {
     const html = await res.text();
     const hasGoogle = /(?:Đăng nhập|Đăng ký) bằng Google/.test(html);
     const hasPassword = html.includes('name="password"');
+    const hasStaleDemo = html.includes("demo@mocan.vn") || html.includes("mocan2026");
     record(
       `${path} exposes email/password without Google sign-in`,
-      res.ok && hasPassword && !hasGoogle,
-      `status=${res.status}, password=${hasPassword}, google=${hasGoogle}`,
+      res.ok && hasPassword && !hasGoogle && !hasStaleDemo,
+      `status=${res.status}, password=${hasPassword}, google=${hasGoogle}, staleDemo=${hasStaleDemo}`,
     );
   }
 }

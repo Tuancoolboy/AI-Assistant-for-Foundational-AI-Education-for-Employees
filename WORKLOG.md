@@ -2707,3 +2707,19 @@ Review toàn diff phát hiện parser chỉ đúng khi cặp tag nằm trong cù
 - Git: remote mới chưa có develop; tạo develop từ origin/main và làm trên fix/remove-google-login. Các ghi chú bootstrap Supabase chưa commit từ task trước được giữ nguyên.
 - Kiểm tra: lint pass (0 lỗi, 16 warnings có sẵn); 625/625 unit tests pass; build production pass. Integration: Phase 1 30/30, auth 8/8 (case duplicate-email bỏ qua vì thiếu key), activity 3/3; manager/invite real-mode bỏ qua vì thiếu Supabase keys. Python thiếu pytest-asyncio; sau khi cài plugin vào /tmp chạy lại có 102/103 pass, 1 lỗi test_api_inventory do danh sách route backend (không đổi Python trong task). npm run test nuốt lỗi pytest nên không coi exit 0 là toàn bộ suite pass. git diff --check pass. Không kiểm thử đăng nhập Supabase thật.
 - Follow-up: merge PR vào develop; đưa thay đổi lên main và redeploy để áp dụng production.
+
+### 27/11/2026 — Gỡ thông tin tài khoản demo không tồn tại
+
+- Mục tiêu: bỏ thông báo tài khoản demo HR đã có lộ trình trong khi Supabase mới chưa có tài khoản hoặc dữ liệu tương ứng.
+- File: src/frontend/app/(auth)/login/page.tsx; scripts/test-phase2-auth-oauth.mjs; cập nhật note ad-hoc của thay đổi auth đang làm.
+- Quyết định: gỡ toàn bộ khung demo ghi cứng; giữ link đăng ký trong form. Không tạo tài khoản hoặc chạy script seed có thao tác dọn dữ liệu. Tiếp tục nhánh fix/remove-google-login và PR #1 vì cùng thay đổi màn hình auth.
+- Kiểm tra: lint pass (0 lỗi, 16 warnings); 625/625 unit tests pass; build production pass; smoke test auth 8/8 (duplicate-email bỏ qua vì thiếu key môi trường), xác nhận login/register không có Google và không chứa thông tin demo cũ. Lỗi Python inventory đã ghi ở lần kiểm tra trước, không chạy lại vì thay đổi chỉ ở UI login.
+- Follow-up: production chỉ cập nhật sau khi merge/release và deploy.
+
+### 27/11/2026 — Tạo tài khoản demo HR theo yêu cầu
+
+- Mục tiêu: cung cấp một tài khoản employee demo thật có lộ trình HR trên Supabase mới.
+- Thao tác: tạo user qua Supabase Auth signup bằng publishable key; xác nhận email và mở quyền học cho đúng user demo; chèn các bài HR/nhóm kỹ năng còn thiếu từ nguồn nội dung hiện có, gán 56 bài và 9 nhóm cho user. Không thêm quyền manager/admin và không xóa dữ liệu khác.
+- Quyết định: legacy API keys đã bị tắt và secret key CLI không dùng được cho admin API; dùng kết nối PostgreSQL xác minh CA, tham số hóa và transaction để nạp dữ liệu. Không đưa API key hoặc mật khẩu demo vào repo, chỉ gửi thông tin đăng nhập trong hội thoại.
+- Kiểm tra: đăng nhập mật khẩu qua Supabase Auth thành công; truy vấn với session của chính user xác nhận role nhan-su, learning_activated=true, assessment đã có, 56 bài được chọn và 9 nhóm active qua RLS.
+- Follow-up: tài khoản có thể dùng ngay trên app trỏ đúng project; thay đổi giao diện bỏ hint demo cũ cần merge/release và deploy.

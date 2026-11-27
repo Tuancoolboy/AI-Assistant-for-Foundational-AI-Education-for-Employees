@@ -5,4 +5,5 @@
 <h2>Thay đổi so với spec gốc</h2><p>Theo yêu cầu trực tiếp của người dùng, không cung cấp nút Google dù Phase 2 từng có OAuth. Không thay đổi provider hoặc identity trên Supabase.</p>
 <h2>Tradeoff</h2><p>Giữ callback dùng chung để bảo toàn luồng email. Tài khoản chỉ có Google identity cần đặt mật khẩu qua luồng hỗ trợ hiện có hoặc quản trị viên.</p>
 <h2>Lưu ý và kiểm tra</h2><p>Kiểm tra lint, test và build được ghi trong WORKLOG.md. Bộ design skill được AGENTS.md chỉ định không có trong bản tải về; giữ thiết kế hiện tại. Cần merge và triển khai để production cập nhật.</p>
+<h2>Bổ sung: tài khoản demo không tồn tại</h2><p>Gỡ khung demo ghi cứng khỏi trang login sau khi người dùng báo tài khoản chưa có. Không tạo tài khoản và không seed dữ liệu. Smoke test kiểm tra cả hai trang không chứa thông tin đăng nhập demo cũ; giữ form và link đăng ký.</p>
 </body></html>
