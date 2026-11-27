@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Implementation Notes — FE-03: HR assessment classification</title>
+</head>
+<body>
+  <h1>Implementation Notes — FE-03: HR assessment classification</h1>
+  <p>Spec: <code>specs/FE-03-onboarding.md</code> và <code>specs/HR-assessment-15-questions.md</code></p>
+  <p>Ngày: 2026-06-24 · Branch: <code>fix/hr-assessment-level-classification</code></p>
+
+  <h2>1. Quyết định AI tự ra (ngoài spec)</h2>
+  <p>Giữ nguyên <code>calculateResult()</code>; thêm wrapper HR riêng để không ảnh hưởng các vai trò và scoring cũ.</p>
+
+  <h2>2. Những chỗ AI thay đổi so với spec gốc</h2>
+  <p>Không viết lại bộ câu hỏi hiện hữu. Chỉ append hai câu yes/no về workflow automation và agent nhiều bước để có bằng chứng rõ cho Level 4/5.</p>
+
+  <h2>3. Tradeoff AI phải cân nhắc</h2>
+  <p>AI level HR và quyết định skip có thể đến từ hai nguồn: wrapper HR quyết định nhãn/level, còn <code>skipBasicModules</code> tiếp tục theo raw scoring cũ. Đây là lựa chọn có chủ ý để không thay đổi behavior cũ ngoài yêu cầu phân loại.</p>
+
+  <h2>4. Bất kỳ điều gì khác cần lưu ý</h2>
+  <p><code>assessment.ts</code> không còn diff so với <code>develop</code>. Năm account Supabase test đã được tính lại bằng wrapper tối giản và persist đúng Level 1–5.</p>
+</body>
+</html>

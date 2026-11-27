@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Implementation Notes - Bitemporal Graph Memory</title>
+  <style>
+    body { font-family: system-ui, sans-serif; line-height: 1.6; max-width: 800px; margin: 0 auto; padding: 2rem; }
+    h1, h2, h3 { color: #2c3e50; }
+    pre { background: #f4f4f4; padding: 1rem; border-radius: 4px; overflow-x: auto; }
+    code { background: #f4f4f4; padding: 0.2rem 0.4rem; border-radius: 3px; font-family: monospace; }
+  </style>
+</head>
+<body>
+
+  <h1>Implementation Notes: Bitemporal Graph Memory</h1>
+  <p><strong>Ngày thực hiện:</strong> 2026-06-24</p>
+  <p><strong>Bởi:</strong> Antigravity AI Agent</p>
+  <p><strong>Spec gốc:</strong> Ad-hoc task</p>
+
+  <hr>
+
+  <h2>1. Quyết định AI tự ra (ngoài spec)</h2>
+  <ul>
+    <li>
+      <strong>Format <code>reasoning_traces</code>:</strong> Thay vì append thẳng <code>reasoning_trace</code> vào metadata của bảng <code>learning_paths</code>, chúng tôi lưu nó trực tiếp vào <code>LearningPathState</code> của LangGraph trong quá trình sinh lộ trình. Dữ liệu này được parse từ LLM JSON response (thông qua prompt update).
+    </li>
+    <li>
+      <strong>Cấu trúc Frontend Bitemporal Component:</strong> Do Vitest đang chạy ở môi trường <code>node</code> không có jsdom/happy-dom được setup, logic tính toán slider time-travel được tách ra hàm <code>calculateBitemporalState</code> thuần tuý trong <code>src/frontend/lib/bitemporal-logic.ts</code>. Hàm này đảm bảo testability cao nhất.
+    </li>
+    <li>
+      <strong>API Mock Frontend:</strong> Trong quá trình phát triển UI component, do Backend Endpoint (FastAPI) chưa sẵn sàng để phục vụ cho `get_student_trajectory_at`, logic filtering (valid_from vs sliderTime) được tạm thời thực hiện ở Frontend bằng pure javascript array filtering. Điều này đáp ứng chính xác việc Re-render theo thời gian thực khi Admin kéo slider.
+    </li>
+  </ul>
+
+  <h2>2. Những chỗ AI phải thay đổi so với spec gốc</h2>
+  <ul>
+    <li>
+      <strong>Thay đổi LangGraph State:</strong> Spec yêu cầu cập nhật state chứa <code>GraphTrajectory</code>. Chúng tôi đã đổi tên biến từ <code>completed_module_ids</code> sang <code>trajectory_edges</code> trong toàn bộ flow (từ data_loader, state, đến nodes và ranking) để đảm bảo đồng bộ ngữ nghĩa.
+    </li>
+    <li>
+      <strong>Gộp reasoningTrace vào llm_raw schema:</strong> Prompt của LLM được thay đổi từ việc chỉ trả về danh sách lộ trình sang trả về thêm key <code>reasoningTrace</code>. Dữ liệu này được hàm <code>validate_llm_output</code> trích xuất lại.
+    </li>
+    <li>
+      <strong>Quyết định thiết kế System Prompt cho Bitemporal Agent:</strong> Do giới hạn token budget của System Prompt, chúng tôi chỉ fetch tối đa <strong>5 điểm uốn gần nhất</strong> (inflection points) từ <code>temporal_knowledge_edges</code>. Khóa cache (fingerprint) được cập nhật để hash thêm mảng 5 điểm uốn này, đảm bảo lộ trình sẽ bị invalidate và sinh mới khi lịch sử học của học viên có cập nhật (cache miss).
+    </li>
+  </ul>
+
+  <h2>3. Tradeoff AI phải cân nhắc</h2>
+  <ul>
+    <li>
+      <strong>Bảng Append-Only vs Mutating Table cho Bitemporal:</strong> Việc chọn Append-Only đáp ứng chuẩn bitemporal (lưu lại <code>superseded_at</code> cho Transaction Time). Tuy nhiên, đổi lại bảng sẽ phình to rất nhanh khi một edge bị sửa đổi nhiều lần (như cập nhật điểm). Giải pháp là dùng index hiệu quả trên `valid_from` và `system_recorded_at`. Cơ chế cleanup log cũ sẽ cần làm ở Phase sau (hoặc offload ra data warehouse).
+    </li>
+    <li>
+      <strong>Slider Re-evaluation vs Snapshot:</strong> Khi kéo slider, thay vì gửi request đến LLM để re-evaluate lại reasoning tại thời điểm đó (tốn kém và chậm), chúng tôi chọn cách tìm <code>reasoning_trace</code> gần nhất trong quá khứ so với thời điểm slider. Điều này đảm bảo hiệu suất UI 60fps khi kéo slider.
+    </li>
+  </ul>
+
+  <h2>4. Bất kỳ điều gì khác cần lưu ý (Gotchas / Follow-ups)</h2>
+  <ul>
+    <li><strong>Follow-up 1:</strong> Cần triển khai endpoint FastAPI thực tế cho RPC <code>get_student_trajectory_at</code> thay vì fetch và lọc ở Frontend khi số lượng edge lớn.</li>
+    <li><strong>Gotcha:</strong> Bảng <code>temporal_knowledge_edges</code> yêu cầu policy RLS rất cẩn thận, đặc biệt liên quan đến quyền của Manager. Hiện tại giả định Manager có thể select data thông qua service_role hoặc RLS tương thích org_id.</li>
+  </ul>
+
+</body>
+</html>

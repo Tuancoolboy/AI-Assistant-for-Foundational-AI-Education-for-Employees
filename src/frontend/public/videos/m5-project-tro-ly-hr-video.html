@@ -1,0 +1,135 @@
+<!DOCTYPE html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Video — m5: Dựng Project Trợ lý HR</title>
+<style>
+:root{color-scheme:light;--coral:#E8714A;--ink:#1f2421;--bd:#e8e2dc;--mut:#8a857e;--bg:#FBF7F4;--side:#f7f5f3}
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',Roboto,Arial,sans-serif}
+body{background:var(--bg);color:var(--ink);padding:16px}
+.wrap{width:720px;max-width:100%;margin:0 auto}
+.hd{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:10px}
+.hd h1{font-size:16px;font-weight:700;color:var(--coral)} .hd .stepn{font-size:12px;color:var(--mut)}
+.screen{position:relative;width:720px;max-width:100%;height:400px;background:#fff;border:1px solid var(--bd);border-radius:12px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.10)}
+.bar{position:absolute;left:0;top:0;right:0;height:40px;display:flex;align-items:center;gap:7px;padding:0 12px;background:#fcfbfa;border-bottom:1px solid var(--bd);z-index:2}
+.dot{width:9px;height:9px;border-radius:50%} .url{flex:1;margin-left:8px;font-size:11px;color:var(--mut)}
+.view{display:none} .view.on{display:block}
+.txt{position:absolute;z-index:1}
+.panel{position:absolute;background:var(--side);border:1px solid var(--bd);border-radius:10px;z-index:1}
+.tgt{position:absolute;z-index:3;display:flex;align-items:center;justify-content:center;text-align:center;background:var(--coral);color:#fff;font-size:12.5px;font-weight:600;border-radius:9px;padding:0 8px}
+.tgt.ghost{background:#fff;border:1.5px solid var(--bd);color:var(--ink)}
+.tgt.field{background:#fff;border:1.5px solid var(--bd);color:var(--mut);font-weight:400;justify-content:flex-start;align-items:flex-start;padding:7px 10px;text-align:left}
+.tgt.box{background:#fff;border:1.5px solid var(--coral);color:#3f3a33;font-weight:400;font-size:11px;line-height:1.4;justify-content:flex-start;align-items:flex-start;text-align:left;padding:8px 10px}
+.tgt.msg{background:#fff;border:1px solid var(--bd);color:var(--ink);font-size:12px;font-weight:400;justify-content:flex-start;text-align:left;padding:9px 11px;line-height:1.45}
+.tgt.add{font-size:18px;border-radius:7px}
+.spot{position:absolute;z-index:5;border:2.5px solid var(--coral);border-radius:10px;box-shadow:0 0 0 9999px rgba(22,24,22,.48);pointer-events:none;animation:pulse 1.5s ease-in-out infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 9999px rgba(22,24,22,.48)}50%{box-shadow:0 0 0 9999px rgba(22,24,22,.40)}}
+.tip{position:absolute;z-index:7;background:var(--ink);color:#fff;border-radius:10px;padding:10px 13px;width:236px;font-size:12.5px;line-height:1.45;box-shadow:0 8px 22px rgba(0,0,0,.3)}
+.tip .n{display:inline-block;background:var(--coral);font-size:10px;font-weight:700;padding:2px 8px;border-radius:12px;margin-bottom:6px}
+.tip b{color:#ffd9c9}
+.cursor{position:absolute;z-index:9;width:22px;height:22px;transition:all .55s cubic-bezier(.6,0,.2,1)}
+.vo{margin-top:12px;background:#fff;border:1px solid var(--bd);border-left:3px solid var(--coral);border-radius:9px;padding:11px 14px;font-size:13.5px;line-height:1.5;min-height:64px}
+.vo b{color:var(--coral)}
+.ctrl{display:flex;align-items:center;gap:10px;margin-top:12px}
+.ctrl button{cursor:pointer;border:none;border-radius:9px;padding:9px 15px;font-size:13px;font-weight:600}
+.prev{background:#fff;border:1px solid var(--bd)!important;color:var(--ink)} .play{background:var(--ink);color:#fff} .next{background:var(--coral);color:#fff}
+.prog{flex:1;display:flex;gap:5px} .prog i{flex:1;height:5px;border-radius:3px;background:#e3ddd6} .prog i.on{background:var(--coral)}
+</style></head>
+<body><div class="wrap">
+<div class="hd"><h1>🎬 m5 — Dựng "Project Trợ lý HR"</h1><span class="stepn" id="stepn">Bước 1 / 5</span></div>
+<div class="screen">
+ <div class="bar"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span><span class="url" id="url">claude.ai/projects</span></div>
+
+ <!-- S1: Projects -> New project -->
+ <div class="view on" data-s="1">
+   <div class="txt" style="left:40px;top:56px;font-size:18px;font-weight:700">Projects</div>
+   <div class="tgt ghost" style="left:40px;top:104px;width:300px;height:74px;font-weight:400;color:var(--mut)">Học quản trị dự án số</div>
+   <div class="tgt ghost" style="left:360px;top:104px;width:300px;height:74px;font-weight:400;color:var(--mut)">Automation test app</div>
+   <div class="tgt" style="left:560px;top:52px;width:120px;height:32px">＋ New project</div>
+   <div class="spot" style="left:560px;top:52px;width:120px;height:32px"></div>
+   <div class="tip" style="left:300px;top:150px"><span class="n">Bước 1</span>Vào <b>Projects</b> ở thanh bên, bấm <b>New project</b>.</div>
+ </div>
+
+ <!-- S2: Create dialog -->
+ <div class="view" data-s="2">
+   <div class="panel" style="left:210px;top:88px;width:300px;height:236px;background:#fff;box-shadow:0 12px 30px rgba(0,0,0,.18)"></div>
+   <div class="txt" style="left:230px;top:104px;font-size:14px;font-weight:700">Create a project</div>
+   <div class="txt" style="left:230px;top:136px;font-size:11px;color:var(--ink)">What are you working on?</div>
+   <div class="tgt field" style="left:230px;top:152px;width:260px;height:30px;align-items:center">Trợ lý HR — Nội thất Mộc An</div>
+   <div class="txt" style="left:230px;top:192px;font-size:11px;color:var(--ink)">What are you trying to achieve?</div>
+   <div class="tgt field" style="left:230px;top:208px;width:260px;height:54px">Trợ lý nhân sự nội bộ: trả lời theo nội quy &amp; tài liệu công ty…</div>
+   <div class="tgt ghost" style="left:230px;top:282px;width:90px;height:30px">Cancel</div>
+   <div class="tgt" style="left:380px;top:282px;width:110px;height:30px">Create project</div>
+   <div class="spot" style="left:380px;top:282px;width:110px;height:30px"></div>
+   <div class="tip" style="left:40px;top:200px"><span class="n">Bước 2</span>Đặt tên &amp; mô tả mục tiêu, rồi bấm <b>Create project</b>.</div>
+ </div>
+
+ <!-- S3: project page -> Files + -->
+ <div class="view" data-s="3">
+   <div class="txt" style="left:40px;top:180px;font-size:12px;color:var(--mut)">How can I help you today?</div>
+   <div class="panel" style="left:380px;top:50px;width:320px;height:330px;background:#fff"></div>
+   <div class="txt" style="left:396px;top:62px;font-size:11px;font-weight:700">Memory</div>
+   <div class="txt" style="left:396px;top:78px;font-size:10px;color:var(--mut)">Bối cảnh công ty (tự ghi nhớ)…</div>
+   <div class="txt" style="left:396px;top:112px;font-size:11px;font-weight:700">Instructions</div>
+   <div class="txt" style="left:396px;top:128px;font-size:10px;color:var(--mut)">Vai trò &amp; giọng văn trợ lý…</div>
+   <div class="txt" style="left:396px;top:170px;font-size:11px;font-weight:700">Files</div>
+   <div class="tgt add" style="left:656px;top:164px;width:26px;height:26px">＋</div>
+   <div class="tgt ghost" style="left:396px;top:200px;width:130px;height:64px;font-weight:400;color:var(--mut);font-size:11px">noi-quy.md</div>
+   <div class="tgt ghost" style="left:540px;top:200px;width:130px;height:64px;font-weight:400;color:var(--mut);font-size:11px">so-tay-NV.md</div>
+   <div class="spot" style="left:652px;top:160px;width:34px;height:34px"></div>
+   <div class="tip" style="left:120px;top:210px"><span class="n">Bước 3</span>Ở mục <b>Files</b>, bấm <b>＋</b> để nạp tài liệu công ty: nội quy, sổ tay, JD mẫu.</div>
+ </div>
+
+ <!-- S4: Instructions -->
+ <div class="view" data-s="4">
+   <div class="panel" style="left:380px;top:50px;width:320px;height:330px;background:#fff"></div>
+   <div class="txt" style="left:396px;top:62px;font-size:11px;font-weight:700">Memory</div>
+   <div class="txt" style="left:396px;top:108px;font-size:11px;font-weight:700">Instructions ✎</div>
+   <div class="tgt box" style="left:392px;top:128px;width:300px;height:78px">Bạn là trợ lý HR của công ty (bám Memory). Giọng thân thiện - rõ ràng. CHỈ trả lời dựa trên tài liệu đã nạp; nếu không có thì nói rõ, không bịa.</div>
+   <div class="txt" style="left:396px;top:220px;font-size:11px;font-weight:700;color:var(--mut)">Files: noi-quy.md · so-tay-NV.md</div>
+   <div class="spot" style="left:392px;top:128px;width:300px;height:78px"></div>
+   <div class="tip" style="left:120px;top:210px"><span class="n">Bước 4</span>Ở <b>Instructions</b>, nhập vai trò + giọng văn + ràng buộc "chỉ trả lời theo tài liệu".</div>
+ </div>
+
+ <!-- S5: chat in project -->
+ <div class="view" data-s="5">
+   <div class="tgt msg" style="left:60px;top:70px;width:440px;height:34px;background:#FFF3EE;border-color:#f3cdbd">Quy định nghỉ phép công ty mình thế nào?</div>
+   <div class="tgt msg" style="left:60px;top:118px;width:560px;height:92px">Theo <b style="color:var(--coral)">Sổ tay nhân viên</b> đã nạp: 12 ngày phép/năm, đăng ký trước 3 ngày làm việc. (Trích Mục 4 — Nghỉ phép). ✅</div>
+   <div class="spot" style="left:60px;top:118px;width:560px;height:92px"></div>
+   <div class="tip" style="left:240px;top:224px"><span class="n">Bước 5 ✓</span>Hỏi trong Project — Claude trả lời <b>bám đúng tài liệu</b> công ty, có trích nguồn.</div>
+ </div>
+
+ <div class="cursor" id="cursor"><svg viewBox="0 0 24 24" width="22" height="22"><path d="M4 2 L4 20 L9 15 L12 22 L15 21 L12 14 L19 14 Z" fill="#1f2421" stroke="#fff" stroke-width="1.3"/></svg></div>
+</div>
+
+<div class="vo" id="vo"></div>
+<div class="ctrl">
+ <button class="prev" onclick="go(cur-1)">◀ Trước</button>
+ <button class="play" id="playbtn" onclick="toggle()">▶ Tự chạy</button>
+ <button class="next" onclick="go(cur+1)">Tiếp ▶</button>
+ <div class="prog" id="prog"></div>
+</div>
+</div>
+<script>
+var VO=[
+ "<b>Bước 1:</b> Vào mục <b>Projects</b> ở thanh bên, bấm <b>New project</b>.",
+ "<b>Bước 2:</b> Đặt tên (vd 'Trợ lý HR') và mô tả mục tiêu, rồi bấm <b>Create project</b>.",
+ "<b>Bước 3:</b> Trong Project, ở mục <b>Files</b> bấm dấu <b>＋</b> để nạp tài liệu công ty: nội quy, sổ tay, JD mẫu.",
+ "<b>Bước 4:</b> Ở mục <b>Instructions</b>, nhập vai trò + giọng văn + ràng buộc 'chỉ trả lời theo tài liệu đã nạp'.",
+ "<b>Bước 5:</b> Giờ hỏi ngay trong Project — Claude trả lời bám đúng tài liệu công ty bạn, có trích nguồn. Một lần dựng, dùng mãi."
+];
+var CUR=[[618,68],[480,297],[668,177],[560,150],[560,164]];
+var cur=1,timer=null,N=5,prog=document.getElementById('prog');
+for(var i=0;i<N;i++)prog.appendChild(document.createElement('i'));
+function render(){
+ document.querySelectorAll('.view').forEach(function(v){v.classList.toggle('on',+v.dataset.s===cur);});
+ document.getElementById('vo').innerHTML=VO[cur-1];
+ document.getElementById('stepn').textContent='Bước '+cur+' / '+N;
+ var urls=['claude.ai/projects','claude.ai/projects','claude.ai/project','claude.ai/project','claude.ai/project'];
+ document.getElementById('url').textContent=urls[cur-1];
+ var c=document.getElementById('cursor'),p=CUR[cur-1];c.style.left=p[0]+'px';c.style.top=p[1]+'px';
+ var b=prog.children;for(var i=0;i<N;i++)b[i].classList.toggle('on',i<cur);
+}
+function go(n){if(n<1)n=N;if(n>N)n=1;cur=n;render();}
+function toggle(){var b=document.getElementById('playbtn');
+ if(timer){clearInterval(timer);timer=null;b.textContent='▶ Tự chạy';}
+ else{b.textContent='⏸ Dừng';timer=setInterval(function(){go(cur+1);},4800);}}
+render();
+</script></body></html>

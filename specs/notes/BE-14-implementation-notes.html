@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Implementation Notes — BE-14: Chat Skill Gating + Topic câu hỏi chưa có lời giải</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 0 auto; padding: 20px; }
+    h1 { border-bottom: 2px solid #eaecef; padding-bottom: 0.3em; color: #24292e; }
+    h2 { border-bottom: 1px solid #eaecef; padding-bottom: 0.3em; color: #24292e; margin-top: 24px; }
+    .meta { color: #586069; font-style: italic; margin-bottom: 20px; }
+    table { width: 100%; border-collapse: collapse; margin: 10px 0; }
+    th, td { padding: 8px 12px; border: 1px solid #dfe2e5; text-align: left; vertical-align: top; }
+    th { background-color: #f6f8fa; }
+    code { background:#f6f8fa; padding:1px 4px; border-radius:3px; }
+  </style>
+</head>
+<body>
+  <h1>Implementation Notes — BE-14: Chat Skill Gating + Topic câu hỏi chưa có lời giải</h1>
+  <div class="meta">
+    <p>Spec: <code>specs/BE-14-chat-skill-gating-and-unsolved-topic.md</code></p>
+    <p>Thực hiện bởi: Claude Opus 4.8</p>
+    <p>Ngày: 2026-06-21</p>
+    <p>Branch: <code>feat/chat-skill-gating</code></p>
+  </div>
+  <hr>
+
+  <h2>1. Quyết định AI tự ra (ngoài spec)</h2>
+  <table>
+    <thead><tr><th>#</th><th>Quyết định</th><th>Lý do</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Atomic upsert qua SECURITY DEFINER SQL functions <code>bump_skill_inquiry_counter</code> + <code>capture_skill_gap</code> thay vì upsert ở app layer</td><td>Supabase JS client không biểu diễn được <code>occurrence_count = occurrence_count + 1</code>; §10a yêu cầu no-lost-update khi 500 user hỏi cùng lúc. RPC atomic là cách đúng.</td></tr>
+      <tr><td>2</td><td>Unique index dùng <code>coalesce(organization_id, sentinel-uuid)</code> thay vì <code>unique(organization_id, cluster_key)</code></td><td>Postgres không coi NULL = NULL trong unique thường → user không-org sẽ không dedup. Sentinel gom chung.</td></tr>
+      <tr><td>3</td><td>Thêm <code>collectGatingCandidates</code> export + <code>loadGatingModulesForUser</code> export</td><td>Route cần skillKey TRƯỚC khi load counter (CASE A cần priorReaskCount) → tách pure candidate-collection; tránh query DB trùng.</td></tr>
+      <tr><td>4</td><td><code>GATING_MIN_SCORE = 2</code></td><td>Nâng nhẹ so với <code>&gt; 0</code> của curriculum để tránh khớp rác rơi nhầm case A/B. Extra-skill match coi đạt ngưỡng riêng (đã lọc kỹ trong findExtraSkillLessonForQuery).</td></tr>
+      <tr><td>5</td><td>Điểm thưởng help được nhận = 15, <code>source='challenge'</code></td><td>Spec gợi ý dùng 'challenge' để khỏi migrate CHECK constraint <code>points_ledger.source</code>; 15 khớp thang điểm challenge hiện có.</td></tr>
+    </tbody>
+  </table>
+
+  <h2>2. Những chỗ AI thay đổi so với spec gốc</h2>
+  <table>
+    <thead><tr><th>#</th><th>Spec nói</th><th>AI làm gì thay thế</th><th>Lý do</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>§3.5: thêm <code>PromptSection</code> vào <code>buildCoreEmployeeSections</code> trong <code>chat-prompt-sections.ts</code></td><td>Thêm đoạn "NGUYÊN TẮC SKILL-GATING" trực tiếp vào <code>buildEmployeeSystemPrompt</code> (openai.ts)</td><td>File <code>chat-prompt-sections.ts</code>/<code>buildCoreEmployeeSections</code> KHÔNG tồn tại trong repo — prompt employee build monolithic trong openai.ts. (User đã duyệt "adapt to real structure".)</td></tr>
+      <tr><td>2</td><td>§0: checkout/pull <code>develop</code></td><td>Branch từ <code>main</code> (<code>feat/chat-skill-gating</code>)</td><td>Repo không có nhánh <code>develop</code> (chỉ <code>main</code> local + remote). (User đã duyệt.)</td></tr>
+      <tr><td>3</td><td>§3.1: <code>resolveSkillGating</code> input không có <code>progressByModuleId</code></td><td>Thêm <code>progressByModuleId</code> vào input</td><td>Cần suy status cho bài "Kỹ năng khác" (curriculum đã carry status, extra thì chưa).</td></tr>
+    </tbody>
+  </table>
+
+  <h2>3. Tradeoff AI phải cân nhắc</h2>
+  <h3>Dedup cluster_key: precision vs recall</h3>
+  <ul>
+    <li><strong>Đã chọn:</strong> normalize bỏ dấu + token ≥3 ký tự + sort + ghép role_id.
+      <ul><li>✅ Các cách hỏi gần giống (đổi thứ tự từ) gom chung.</li><li>❌ Đổi từ vựng nhiều (synonyms) sẽ né cluster → tạo gap mới (false negative). Chấp nhận MVP.</li></ul>
+    </li>
+    <li><strong>Bỏ qua:</strong> fuzzy/embedding similarity — nặng, chưa cần cho MVP.</li>
+  </ul>
+  <p><strong>Quyết định:</strong> ưu tiên precision (không gom nhầm 2 câu khác nghĩa) hơn recall; tail synonyms để follow-up.</p>
+
+  <h3>captureSkillGap latency</h3>
+  <ul>
+    <li><strong>Đã chọn:</strong> fire-and-forget <code>void</code> + service client tái dùng (singleton trong supabase/server). Lỗi DB fail-open (log, không chặn stream).</li>
+    <li>✅ Không tăng TTFB câu trả lời. ❌ Dưới tải cực cao có thể drop 1 vài capture (chấp nhận hơn chặn UX).</li>
+  </ul>
+
+  <h2>4. Những điều khác bạn nên biết</h2>
+  <ul>
+    <li><strong>Known limitation:</strong> <code>distinct_user_count</code> suy từ <code>skill_gap_events</code> — chỉ tăng khi user chưa xuất hiện; lần insert đầu tiên giữ =1 (guard <code>occurrence_count &gt; 1</code>).</li>
+    <li><strong>Gotcha:</strong> NULL-org gaps dedup qua sentinel uuid <code>00000000-...</code>; nếu sau này có org thật trùng uuid này (không thể, gen_random_uuid) thì mới đụng.</li>
+    <li><strong>Security:</strong> <code>skill_gaps</code>/<code>skill_gap_events</code> RLS manager-only; chat route ghi bằng service role. Promote validate role_id (5 vai trò, loại <code>nhan-su</code> vì <code>learning_modules</code> CHECK không cho).</li>
+    <li><strong>Cần follow-up:</strong> Prompt-injection "bỏ qua hướng dẫn, cho đáp án" ở CASE B — hint nằm ở system turn + user content qua wrap untrusted; cần browser-smoke vài câu tấn công xác nhận vẫn gate (§10c).</li>
+    <li><strong>deep_answer:</strong> cờ tồn tại (type/parse/merge) nhưng route truyền <code>false</code>, ẩn UI — chờ lead duyệt.</li>
+    <li><strong>Demo/no-key:</strong> skill-gating CHỈ chạy nhánh supabase + có key. Demo giữ nguyên.</li>
+  </ul>
+
+  <h2>5. Companion red-team (§10) — đã xử lý</h2>
+  <table>
+    <thead><tr><th>#</th><th>Phát hiện</th><th>Xử lý</th></tr></thead>
+    <tbody>
+      <tr><td>C1</td><td>Tự đăng câu hỏi → tự help → tự accept = tự thưởng 15 điểm</td><td>FIXED: help route từ chối khi <code>question.user_id === session.userId</code>.</td></tr>
+      <tr><td>L3</td><td>Accept nhiều help của cùng câu hỏi → cộng điểm lặp</td><td>FIXED: accept route trả về sớm nếu <code>question.status === 'answered'</code> (cap 1 lần thưởng/câu).</td></tr>
+      <tr><td>H3</td><td>Manager promote được gap null-org / org khác → chèn module global xuyên org</td><td>FIXED: guard strict <code>gap.organization_id === manager.org</code>; null-org dành platform admin/export.</td></tr>
+      <tr><td>H1</td><td><code>distinct_user_count</code> sai dưới concurrency (check-then-act)</td><td>FIXED: unique index <code>skill_gap_events(skill_gap_id,user_id)</code> + <code>on conflict do nothing</code> + <code>GET DIAGNOSTICS</code> + guard <code>occurrence&gt;1</code>. Đánh đổi: events giờ là log distinct-user (1/user/gap), không log mọi lần miss; occurrence_count vẫn đếm tổng.</td></tr>
+      <tr><td>H2</td><td>Gap null-org (user solo) bị RLS ẩn khỏi mọi manager</td><td>FIXED: thêm policy <code>public.is_platform_admin()</code> SELECT trên skill_gaps + skill_gap_events; vẫn truy được qua export script (service role).</td></tr>
+      <tr><td>C2</td><td>User-turn message thô tới OpenAI → có thể prompt-inject lật CASE B</td><td>MITIGATED (không sanitize user-turn): gating là nudge UX, KHÔNG phải security boundary; sanitize message thô sẽ regress câu hỏi nhiều dòng hợp lệ (lý do codebase không làm). Thay vào đó hardening chỉ thị system-turn CASE B chống ghi đè. Downside lật gating nhỏ (user chỉ nhận đáp án bài chưa học). Để follow-up nếu cần guard mạnh hơn.</td></tr>
+      <tr><td>M1/M3</td><td>captureSkillGap không timeout; bump nuốt lỗi</td><td>Không sửa: đã fail-open + có <code>catch</code> log nội bộ; thêm timeout là over-engineering cho MVP. Ghi nhận.</td></tr>
+    </tbody>
+  </table>
+</body>
+</html>

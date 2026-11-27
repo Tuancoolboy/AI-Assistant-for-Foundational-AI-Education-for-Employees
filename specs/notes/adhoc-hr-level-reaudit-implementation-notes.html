@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Implementation Notes — adhoc-hr-level-reaudit: Re-audit & cải tiến phân loại Level 1–5</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    h1 {
+      border-bottom: 2px solid #eaecef;
+      padding-bottom: 0.3em;
+      color: #24292e;
+    }
+    h2 {
+      border-bottom: 1px solid #eaecef;
+      padding-bottom: 0.3em;
+      color: #24292e;
+      margin-top: 24px;
+    }
+    .meta {
+      color: #586069;
+      font-style: italic;
+      margin-bottom: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+    th, td {
+      padding: 8px 12px;
+      border: 1px solid #dfe2e5;
+      text-align: left;
+    }
+    th {
+      background-color: #f6f8fa;
+    }
+    .checklist {
+      list-style: none;
+      padding-left: 0;
+    }
+    .checklist li {
+      margin-bottom: 6px;
+    }
+    .checklist input {
+      margin-right: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Implementation Notes — adhoc-hr-level-reaudit: Re-audit & cải tiến phân loại Level 1–5</h1>
+  <div class="meta">
+    <p>Spec: ad-hoc (prompt yêu cầu re-audit, tiêu chí từ <code>ai-troly-slides-toi-nay.md</code> / <code>kickoff-zoom-toi-nay.html</code>)</p>
+    <p>Thực hiện bởi: Claude Opus 4.6 (Thinking) via Antigravity</p>
+    <p>Ngày: 2026-06-24</p>
+    <p>Branch: <code>fix/hr-assessment-level-classification</code></p>
+  </div>
+
+  <hr>
+
+  <h2>1. Quyết định AI tự ra (ngoài spec)</h2>
+  <p>Những gì AI chủ động quyết định mà prompt không đề cập rõ.</p>
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Quyết định</th>
+        <th>Lý do</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>Free-text textarea: max 500 ký tự, strip HTML tags client-side, cho phép bỏ trống (optional)</td>
+        <td>500 chars đủ mô tả 1 tác vụ lặp; sanitize ngăn XSS; optional vì không phải user nào cũng có ý muốn viết</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>P0-B monotonic: giữ nguyên decision tree, chỉ thêm comment — không bắt hasAutomation khi hasAgent=true</td>
+        <td>Decision tree đã short-circuit đúng. Bắt buộc cả 2 = yes sẽ chặn user hợp lệ (đã build agent nhưng không đánh dấu "automation" vì hiểu automation khác)</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>Test 5 accounts dùng script Supabase service-role trực tiếp thay vì browser flow</td>
+        <td>Nhanh hơn, reproducible, logic tính level giống hệt client (inline cùng hàm). Đã verify kết quả đọc lại từ DB</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>2. Những chỗ AI thay đổi so với spec gốc</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Prompt yêu cầu</th>
+        <th>AI làm gì</th>
+        <th>Lý do</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>"Sửa decision tree: nếu hasAgent mà !hasAutomation → vẫn L5 nhưng coi như đã đạt L4"</td>
+        <td>Giữ nguyên logic, thêm JSDoc comment ghi monotonic invariant</td>
+        <td>Logic đã đúng: <code>if (hasAgent) aiLevel = 5</code> short-circuits trước check automation. Thêm code "coi như L4" sẽ phức tạp hóa mà không đổi hành vi</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>"Kiểm tra path-agent/learning-path-selection đọc field nào, sửa cho khớp"</td>
+        <td>Audit 6 downstream consumer, xác nhận đều derive <code>skipBasicModules</code> từ <code>aiLevel >= 5</code> — chỉ StepResult bị lệch, đã fix bằng override</td>
+        <td>Không cần sửa downstream; sửa nguồn (calculateHrAssessmentResult) là đủ</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>3. Tradeoff AI phải cân nhắc</h2>
+
+  <h3>Tradeoff 1 — P1-A: promptSkill "2" → L2 hay L3?</h3>
+  <ul>
+    <li><strong>Option A (đã chọn):</strong> "2" → L3
+      <ul>
+        <li>✅ Option "2" = "Biết mô tả bối cảnh + yêu cầu cụ thể" — context-aware, core of L3</li>
+        <li>❌ Chưa bao gồm Role/Format/Constraint đầy đủ theo slides</li>
+      </ul>
+    </li>
+    <li><strong>Option B:</strong> "2" → L2, chỉ "3"/"4" → L3
+      <ul>
+        <li>✅ Stricter theo đúng slides L3 definition</li>
+        <li>❌ Đẩy nhiều user xuống L2 khi họ đã có context-awareness — UX không tốt</li>
+      </ul>
+    </li>
+  </ul>
+  <p><strong>Quyết định:</strong> Chọn A. Option "2" mô tả context-awareness — đủ để xếp L3. Gap giữa "biết bối cảnh" và "full CRCF" sẽ được lộ trình bù đắp.</p>
+
+  <h3>Tradeoff 2 — P1-B: Xác minh self-report L4/L5</h3>
+  <ul>
+    <li><strong>Option A (đã chọn):</strong> Giữ yes/no đơn giản
+      <ul>
+        <li>✅ UX nhanh, ít friction, phù hợp cohort nhỏ (~15 user)</li>
+        <li>❌ Dễ false positive/negative</li>
+      </ul>
+    </li>
+    <li><strong>Option B:</strong> Thêm câu phụ "công cụ bạn đã nối?" khi chọn yes
+      <ul>
+        <li>✅ Giảm false positive</li>
+        <li>❌ Cần conditional question rendering, phức tạp hóa StepAssessment</li>
+      </ul>
+    </li>
+  </ul>
+  <p><strong>Quyết định:</strong> Chọn A. Assessment là diagnostic, false positive → lộ trình khó hơn (acceptable). Có thể revisit ở P2 nếu cần.</p>
+
+  <h2>4. Những điều khác bạn nên biết</h2>
+  <ul>
+    <li><strong>Known limitation:</strong> Free-text sanitize chỉ strip HTML client-side. Server-side (Supabase RLS) không validate nội dung text — nếu cần chặn injection ở DB level, thêm CHECK constraint hoặc function trigger.</li>
+    <li><strong>Gotcha:</strong> <code>skipBasicModules</code> trong <code>AssessmentResult</code> type comment nói "aiLevel > 5" nhưng logic thật là <code>aiLevel >= 5</code>. Comment cũ chưa sửa trong <code>assessment.ts</code> — chỉ ảnh hưởng doc, không ảnh hưởng code.</li>
+    <li><strong>P2 pending:</strong> Câu hỏi ≥16 câu và generalize capability-gate cho role khác chưa được chốt scope.</li>
+    <li><strong>Dependency:</strong> <code>extractHrSignals</code> đã đọc <code>q-hr-recurring</code> — khi path agent tích hợp, nó sẽ nhận <code>recurringTaskText</code> mà không cần sửa thêm.</li>
+  </ul>
+
+  <hr>
+
+  <h2>Checklist trước khi commit</h2>
+  <ul class="checklist">
+    <li><input type="checkbox" checked> File này đã điền đủ 4 section</li>
+    <li><input type="checkbox" checked> Tên file đúng format: <code>adhoc-hr-level-reaudit-implementation-notes.html</code></li>
+    <li><input type="checkbox" checked> File được commit cùng PR với code</li>
+    <li><input type="checkbox" checked> Không có thay đổi so với spec cần thông báo (ad-hoc task)</li>
+  </ul>
+
+</body>
+</html>

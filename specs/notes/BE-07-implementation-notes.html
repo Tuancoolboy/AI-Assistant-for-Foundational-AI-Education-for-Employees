@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Implementation Notes — BE-07: Supabase Employee Persistence</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; color: #333; max-width: 880px; margin: 0 auto; padding: 20px; }
+    h1 { border-bottom: 2px solid #eaecef; padding-bottom: 0.3em; color: #24292e; }
+    h2 { border-bottom: 1px solid #eaecef; padding-bottom: 0.3em; color: #24292e; margin-top: 24px; }
+    .meta { color: #586069; font-style: italic; margin-bottom: 20px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; margin-bottom: 10px; }
+    th, td { padding: 8px 12px; border: 1px solid #dfe2e5; text-align: left; vertical-align: top; }
+    th { background-color: #f6f8fa; }
+    code { background: #f6f8fa; padding: 0.1em 0.3em; border-radius: 3px; }
+  </style>
+</head>
+<body>
+  <h1>Implementation Notes — BE-07: Supabase Employee Persistence</h1>
+  <div class="meta">
+    <p>Spec: <code>specs/BE-07-supabase-employee-persistence.md</code></p>
+    <p>Thực hiện bởi: Codex</p>
+    <p>Ngày: 2026-06-09</p>
+    <p>Branch: <code>feat/tuan</code></p>
+  </div>
+
+  <h2>1. Quyết định AI tự ra (ngoài spec)</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Quyết định</th>
+        <th>Lý do</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>Tạo <code>lib/supabase/employee.ts</code> làm data access layer client-side cho employee flow.</td>
+        <td>Giữ logic Supabase tập trung, tránh rải query trực tiếp vào nhiều component.</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>Dùng browser Supabase client + session user id cho profile/progress/quiz/time logs.</td>
+        <td>Đúng RLS user-scoped, không cần service role và không expose secret ra client.</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>Vẫn ghi local demo profile sau khi onboarding Supabase lưu thành công.</td>
+        <td>Giữ trải nghiệm hiện tại ổn trong cùng browser và không ảnh hưởng DB thật.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>2. Những chỗ AI thay đổi so với spec gốc</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Spec nói</th>
+        <th>AI làm gì thay thế</th>
+        <th>Lý do</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>Fallback localStorage cho demo mode.</td>
+        <td>Fallback chỉ là nhánh chính khi thiếu Supabase env; khi Supabase write fail thì hiển thị lỗi và rollback/preserve safe state.</td>
+        <td>Tránh che lỗi persistence thật, giúp debug Supabase dễ hơn.</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>Persist toàn bộ employee flow.</td>
+        <td>AI tutor vẫn dùng canned responses, nhưng profile role cho tutor đã đọc từ Supabase real mode.</td>
+        <td>OpenAI route nằm ngoài scope BE-07, nhưng tutor cần profile thật để không kẹt onboarding sau reload.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>3. Tradeoff AI phải cân nhắc</h2>
+  <p><strong>Client data layer vs Route Handlers:</strong> Chọn client data layer vì các bảng đã có RLS user-scoped và component hiện là client components. Route Handlers sẽ thêm nhiều surface auth/error mới mà chưa cần cho Phase 1.</p>
+  <p><strong>Upsert profile vs update-only:</strong> Chọn upsert kèm policy <code>profiles_insert_own</code> để xử lý cả user cũ chưa có profile do trigger chưa từng chạy.</p>
+  <p><strong>Manager DB now vs later:</strong> Giữ manager mock theo AGENTS/BE-07 để tránh mở Phase 2 khi mục tiêu hiện tại là employee persistence.</p>
+
+  <h2>4. Những điều khác bạn nên biết</h2>
+  <ul>
+    <li><strong>Migration cần chạy:</strong> Supabase real mode cần áp dụng <code>0001_init.sql</code>, <code>0002_profiles_trigger.sql</code>, và <code>0003_employee_profile_assessment.sql</code>.</li>
+    <li><strong>Update 2026-06-10:</strong> đăng ký mới có field họ tên; chạy thêm <code>0009_profile_full_name_metadata.sql</code> để trigger lưu <code>auth.users.raw_user_meta_data.full_name</code> vào <code>profiles.full_name</code>.</li>
+    <li><strong>Update 2026-06-10:</strong> đăng ký thành công luôn chuyển về <code>/login?registered=1</code>; nếu Supabase trả session ngay (khi tắt email confirmation), client gọi <code>signOut()</code> trước để buộc đăng nhập lại.</li>
+    <li><strong>Update 2026-06-10:</strong> đăng ký mới có field số điện thoại; chạy thêm <code>0010_profile_phone_number.sql</code> để lưu <code>auth.users.raw_user_meta_data.phone_number</code> vào <code>profiles.phone_number</code>.</li>
+    <li><strong>Update 2026-06-17:</strong> Tuancoolboy — thêm dropdown tài khoản và trang <code>/tai-khoan</code>; real mode dùng <code>/api/profile</code> cho hồ sơ và <code>supabase.auth.updateUser()</code> cho mật khẩu/email, demo mode chỉ cảnh báo.</li>
+    <li><strong>Update 2026-06-17:</strong> follow-up fix — trang <code>/tai-khoan</code> ưu tiên nhãn nghề từ <code>profiles.role_id</code> thay vì chữ generic <code>Nhân viên</code>; luồng đổi mật khẩu/email cũng bắt exception client-side để hiện lỗi an toàn khi Supabase throw.</li>
+    <li><strong>Update 2026-06-18:</strong> thêm migration <code>20260618134858_onboarding_assessment_results.sql</code> để lưu mỗi lần hoàn thành khảo sát onboarding vào <code>onboarding_assessment_results</code>. <code>profiles.assessment_result</code> vẫn là snapshot hiện tại; bảng mới giữ raw answers, result JSON, score, AI level, role và các tín hiệu cá nhân hóa để không mất lịch sử khi user làm lại khảo sát.</li>
+    <li><strong>Update 2026-06-24:</strong> phân loại HR được cô lập trong <code>calculateHrAssessmentResult()</code>; shared scoring và skip module không đổi. Hai câu gate HR mới là bằng chứng duy nhất cho Level 4 automation và Level 5 agent. Năm account confirmed/activated đã được tính và persist lần lượt Level 1–5.</li>
+    <li><strong>Update 2026-06-25:</strong> filter ngày tại đo lường học tập dùng trọn ngày lịch Việt Nam theo khoảng UTC đóng–mở. Khi có filter, API chỉ trả học viên có hoạt động trong khoảng và tính đồng nhất bài hoàn thành, quiz, chat, giờ tiết kiệm, điểm, ngày hoạt động và phiên trong cùng khoảng; cột truy cập gần nhất dùng mốc mới nhất giữa hoạt động ứng dụng và đăng nhập.</li>
+    <li><strong>Known limitation:</strong> Chưa có server-side OpenAI chat route; <code>chat_usage</code> vẫn là bảng chuẩn bị cho bước sau.</li>
+    <li><strong>Debug:</strong> Các lỗi Supabase client được log ngắn gọn bằng prefix theo màn: <code>[onboarding]</code>, <code>[lo-trinh]</code>, <code>[kiem-tra]</code>, <code>[tien-bo]</code>, <code>[tro-ly]</code>.</li>
+    <li><strong>Verification:</strong> Build Node 20 đã pass. <code>npm run lint</code> toàn repo đã pass sau khi exclude <code>.codex/**</code> khỏi ESLint project source, cho phép CommonJS trong <code>.cjs</code> scripts, và escape quote ở landing page.</li>
+  </ul>
+
+  <h2>5. Update 2026-06-23 — Quiz Học tập và XP thật</h2>
+  <h3>Quyết định AI tự ra (ngoài spec)</h3>
+  <p>Mở rộng <code>quiz_results</code> thay vì tạo bảng attempt thứ hai, đồng thời dùng RPC service-role để ghi attempt và phần XP tăng vào <code>points_ledger</code> trong cùng transaction.</p>
+  <h3>Những chỗ AI phải thay đổi so với spec gốc</h3>
+  <p>Policy insert trực tiếp của <code>quiz_results</code> chỉ còn cho nguồn <code>learning</code> cũ; attempt <code>hoc-tap</code>, <code>attempt_id</code> và <code>xp_earned</code> chỉ được tạo qua RPC sau khi server chấm answers.</p>
+  <h3>Tradeoff AI phải cân nhắc</h3>
+  <p>Catalog câu hỏi và đáp án vẫn nằm trong code để tránh mở authoring scope; dữ liệu user, điểm cao nhất, XP và lịch sử attempt được persist Supabase để đồng bộ thiết bị.</p>
+  <h3>Bất kỳ điều gì khác cần lưu ý</h3>
+  <p>Không migrate key localStorage XP cũ. Real mode không fallback memory/localStorage; demo mode dùng key mới và bắt đầu từ 0.</p>
+
+  <h2>6. Update 2026-06-26 — Timed quiz attempts và bộ câu hỏi dài hơn</h2>
+  <h3>Quyết định AI tự ra (ngoài spec)</h3>
+  <p>Thêm sentinel <code>-1</code> cho câu chưa trả lời khi hết giờ. Client luôn gửi đủ mảng đáp án theo số câu, còn server/grader tính <code>-1</code> là sai thay vì reject payload.</p>
+  <h3>Những chỗ AI phải thay đổi so với spec gốc</h3>
+  <p>Spec BE-07 chỉ yêu cầu quiz score persistence; thay đổi này bổ sung countdown UI và auto-submit nhưng không đổi schema <code>quiz_results</code> hay RLS.</p>
+  <h3>Tradeoff AI phải cân nhắc</h3>
+  <p>Chọn timer tổng theo bài thay vì timer từng câu để ít gây giật luồng học. Quiz Học tập dùng <code>durationMinutes</code> có sẵn, quiz theo lộ trình dùng 60 giây/câu.</p>
+  <h3>Bất kỳ điều gì khác cần lưu ý</h3>
+  <p>Các role quiz và quiz Học tập hiện có 10 câu/bộ. Ba card Học tập cũ ở trạng thái <code>coming-soon</code> (<code>prompt-engineering</code>, <code>phan-tich-du-lieu</code>, <code>ai-automation</code>) nay là quiz thật gắn <code>roleId="khac"</code>, có link làm bài và cộng XP. Form AI gen câu hỏi trong Học tập mặc định 10 câu và UI giới hạn 10–15 câu, nhưng helper API vẫn giữ min cũ để không phá phòng/test cũ dùng câu hỏi tự chọn ngắn.</p>
+
+  <h2>7. Update 2026-07-01 — Merge repair against develop for quiz/avatar branch</h2>
+  <h3>Quyết định AI tự ra (ngoài spec)</h3>
+  <p>Khôi phục các file nền của <code>develop</code> bị xoá nhầm trong branch quiz/avatar, rồi merge thủ công các điểm chạm BE-07 thay vì lấy nguyên một phía. Mục tiêu là giữ feature quiz/avatar/Học tập nhưng không làm mất guard auth/session/persistence đã có trên <code>develop</code>.</p>
+  <h3>Những chỗ AI phải thay đổi so với spec gốc</h3>
+  <p><code>proxy.ts</code> tiếp tục dùng <code>learning_activated</code>, operator/platform-admin route guards và demo cookies của <code>develop</code>, đồng thời dùng helper public Supabase key mới. <code>/api/quiz-results</code> giữ server-side Học tập grading/XP nhưng kiểm tra <code>loadLearningActivationRecord()</code>/<code>canAccessLearning()</code> trước khi đọc hoặc ghi quiz result. <code>/api/profile</code> giữ avatar payload và đưa lại role <code>nhan-su</code>.</p>
+  <h3>Tradeoff AI phải cân nhắc</h3>
+  <p>Không đổi schema BE-07 và không thêm migration mới. Các migration/activation/platform-admin/email file đã có từ <code>develop</code> được restore nguyên trạng để branch không xoá nền production khi merge.</p>
+  <h3>Bất kỳ điều gì khác cần lưu ý</h3>
+  <p>Verification: targeted Vitest 54/54 pass; <code>npm run lint -- --ignore-pattern 'duck-race-master/**'</code> pass với 5 warning cũ; <code>npm run test</code> unit pass 447/447 và build pass, nhưng API integration dừng ở 21/30 vì env local đang Supabase mode nhưng thiếu auth credentials nên endpoint authenticated trả 401; <code>npm run db:validate</code> pass 50 migrations; <code>npm run build</code> pass; <code>git diff --check</code> pass.</p>
+</body>
+</html>

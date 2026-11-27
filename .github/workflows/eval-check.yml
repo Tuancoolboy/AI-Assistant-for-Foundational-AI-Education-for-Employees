@@ -1,0 +1,38 @@
+name: RAGAS Agent Evaluation Check
+
+on:
+  pull_request:
+    branches:
+      - develop
+    paths:
+      - 'src/backend/agents/**'
+      - 'src/backend/services/**'
+      - 'src/backend/eval/**'
+  workflow_dispatch:
+
+jobs:
+  ragas-eval:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install Dependencies
+        run: |
+          cd src/backend
+          pip install -r requirements.txt
+
+      - name: Run RAGAS Dry-run Evaluation
+        env:
+          OPENAI_API_KEY: "mock-key-for-ci"
+          APP_ENV: "test"
+        run: |
+          chmod +x src/backend/eval/run_all.sh
+          ./src/backend/eval/run_all.sh --dry-run

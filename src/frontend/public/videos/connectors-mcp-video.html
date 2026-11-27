@@ -1,0 +1,51 @@
+<!DOCTYPE html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>m54/m60 — Nối công cụ qua Connectors (Drive/Gmail/Notion/MCP)</title><style>:root{color-scheme:light;--coral:#E8714A;--ink:#1f2421;--bd:#e8e2dc;--mut:#8a857e;--bg:#FBF7F4;--side:#f7f5f3}
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',Roboto,Arial,sans-serif}
+body{background:var(--bg);color:var(--ink);padding:16px}.wrap{width:720px;max-width:100%;margin:0 auto}
+.hd{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:10px}
+.hd h1{font-size:15px;font-weight:700;color:var(--coral)}.hd .stepn{font-size:12px;color:var(--mut)}
+.screen{position:relative;width:720px;max-width:100%;height:400px;background:#fff;border:1px solid var(--bd);border-radius:12px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.10)}
+.bar{position:absolute;left:0;top:0;right:0;height:40px;display:flex;align-items:center;gap:7px;padding:0 12px;background:#fcfbfa;border-bottom:1px solid var(--bd);z-index:2}
+.dot{width:9px;height:9px;border-radius:50%}.url{flex:1;margin-left:8px;font-size:11px;color:var(--mut)}
+.view{display:none}.view.on{display:block}.b{position:absolute;z-index:1}
+.box{position:absolute;z-index:3;display:flex;align-items:center;justify-content:center;text-align:center;border-radius:9px;font-size:12.5px;padding:0 8px}
+.coral{background:var(--coral);color:#fff;font-weight:600}.ghost{background:#fff;border:1.5px solid var(--bd);color:var(--ink)}
+.nav{background:transparent;color:var(--ink);font-weight:500;justify-content:flex-start;font-size:12px}
+.field{background:#fff;border:1.5px solid var(--bd);color:var(--mut);font-weight:400;justify-content:flex-start;padding-left:12px}
+.msg{background:#fff;border:1px solid var(--bd);color:var(--ink);font-size:12px;font-weight:400;justify-content:flex-start;text-align:left;padding:9px 11px;line-height:1.45}
+.panel{position:absolute;background:var(--side);border:1px solid var(--bd);border-radius:10px;z-index:1}
+.white{position:absolute;background:#fff;border:1px solid var(--bd);border-radius:10px;z-index:1}
+.spot{position:absolute;z-index:5;border:2.5px solid var(--coral);border-radius:10px;box-shadow:0 0 0 9999px rgba(22,24,22,.48);pointer-events:none;animation:pulse 1.5s ease-in-out infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 9999px rgba(22,24,22,.48)}50%{box-shadow:0 0 0 9999px rgba(22,24,22,.40)}}
+.tip{position:absolute;z-index:7;background:var(--ink);color:#fff;border-radius:10px;padding:10px 13px;width:236px;font-size:12.5px;line-height:1.45;box-shadow:0 8px 22px rgba(0,0,0,.3)}
+.tip .n{display:inline-block;background:var(--coral);font-size:10px;font-weight:700;padding:2px 8px;border-radius:12px;margin-bottom:6px}.tip b{color:#ffd9c9}
+.cursor{position:absolute;z-index:9;width:22px;height:22px;transition:all .55s cubic-bezier(.6,0,.2,1)}
+.vo{margin-top:12px;background:#fff;border:1px solid var(--bd);border-left:3px solid var(--coral);border-radius:9px;padding:11px 14px;font-size:13.5px;line-height:1.5;min-height:60px}.vo b{color:var(--coral)}
+.ctrl{display:flex;align-items:center;gap:10px;margin-top:12px}.ctrl button{cursor:pointer;border:none;border-radius:9px;padding:9px 15px;font-size:13px;font-weight:600}
+.prev{background:#fff;border:1px solid var(--bd)!important;color:var(--ink)}.play{background:var(--ink);color:#fff}.next{background:var(--coral);color:#fff}
+.prog{flex:1;display:flex;gap:5px}.prog i{flex:1;height:5px;border-radius:3px;background:#e3ddd6}.prog i.on{background:var(--coral)}</style></head><body><div class="wrap">
+<div class="hd"><h1>🎬 m54/m60 — Nối công cụ qua Connectors (Drive/Gmail/Notion/MCP)</h1><span class="stepn" id="stepn">Bước 1 / 4</span></div>
+<div class="screen">
+<div class="bar"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span><span class="url" id="url">claude.ai · Customize</span></div>
+<div class="view on" data-s="1"><div class="white" style="left:120px;top:52px;width:482px;height:336px"></div><div class="b" style="left:140px;top:66px;width:150px;height:12px">SETTINGS</div><div class="box nav" style="left:135px;top:84px;width:150px;height:20px">General · Account</div><div class="b" style="left:140px;top:118px;width:150px;height:12px">CUSTOMIZE</div><div class="box nav" style="left:135px;top:134px;width:150px;height:20px">Skills</div><div class="box nav coral" style="left:135px;top:158px;width:150px;height:20px">Connectors</div><div class="box nav" style="left:135px;top:182px;width:150px;height:20px">Plugins</div><div class="b" style="left:320px;top:84px;width:260px;height:16px">Connectors — nối Claude với công cụ</div><div class="spot" style="left:131px;top:156px;width:160px;height:24px"></div><div class="tip" style="left:330px;top:150px"><span class="n">Bước 1</span>Customize → <b>Connectors</b>: nơi nối Claude với Drive, Gmail, Notion, MCP.</div></div>
+<div class="view" data-s="2"><div class="white" style="left:120px;top:52px;width:482px;height:336px"></div><div class="b" style="left:140px;top:72px;width:200px;height:14px">Connectors có sẵn</div><div class="box ghost" style="left:140px;top:100px;width:300px;height:40px">📧 Gmail</div><div class="box coral" style="left:470px;top:104px;width:90px;height:32px">Connect</div><div class="box ghost" style="left:140px;top:150px;width:300px;height:40px">🗂️ Notion</div><div class="box ghost" style="left:140px;top:200px;width:300px;height:40px">🧩 Workable (MCP)</div><div class="spot" style="left:470px;top:104px;width:90px;height:32px"></div><div class="tip" style="left:150px;top:260px"><span class="n">Bước 2</span>Bấm <b>Connect</b> cạnh dịch vụ cần nối (vd Gmail/Notion/Workable).</div></div>
+<div class="view" data-s="3"><div class="white" style="left:200px;top:80px;width:320px;height:240px"></div><div class="b" style="left:220px;top:100px;width:260px;height:16px">Cho phép Claude truy cập?</div><div class="b" style="left:220px;top:128px;width:280px;height:28px">Chỉ cấp quyền tối thiểu cần thiết</div><div class="box ghost" style="left:220px;top:250px;width:120px;height:32px">Huỷ</div><div class="box coral" style="left:400px;top:250px;width:110px;height:32px">Cho phép</div><div class="spot" style="left:400px;top:250px;width:110px;height:32px"></div><div class="tip" style="left:120px;top:150px"><span class="n">Bước 3</span>Đăng nhập & <b>Cho phép</b> — chỉ cấp quyền tối thiểu (thư mục/nhãn cần).</div></div>
+<div class="view" data-s="4"><div class="box msg" style="left:60px;top:70px;width:560px;height:40px">Bạn: Tìm email ứng viên chưa phản hồi 5 ngày.</div><div class="box msg" style="left:60px;top:120px;width:560px;height:90px">Claude: Đã tìm 3 email qua Gmail. Soạn nháp nhắc lịch cho từng người (chưa gửi). ✅</div><div class="spot" style="left:60px;top:120px;width:560px;height:90px"></div><div class="tip" style="left:240px;top:224px"><span class="n">Bước 4 ✓</span>Nối xong — Claude đọc/ghi được. 🚨 Hành động gửi/ghi: người duyệt.</div></div>
+
+<div class="cursor" id="cursor"><svg viewBox="0 0 24 24" width="22" height="22"><path d="M4 2 L4 20 L9 15 L12 22 L15 21 L12 14 L19 14 Z" fill="#1f2421" stroke="#fff" stroke-width="1.3"/></svg></div>
+</div>
+<div class="vo" id="vo"></div>
+<div class="ctrl"><button class="prev" onclick="go(cur-1)">◀ Trước</button><button class="play" id="playbtn" onclick="toggle()">▶ Tự chạy</button><button class="next" onclick="go(cur+1)">Tiếp ▶</button><div class="prog" id="prog"></div></div>
+</div>
+<script>
+var VO=["<b>Bước 1:</b> Vào Customize → <b>Connectors</b> — nơi nối Claude với công cụ ngoài (Drive, Gmail, Notion, hệ HR qua MCP).", "<b>Bước 2:</b> Bấm <b>Connect</b> cạnh dịch vụ cần nối. MCP hosted (Workable/Merge) chỉ cần đăng nhập, không đụng terminal.", "<b>Bước 3:</b> Đăng nhập OAuth và Cho phép — chỉ cấp quyền tối thiểu. Dữ liệu nhân sự nhạy cảm: cấp đúng phần cần.", "<b>Bước 4:</b> Nối xong, Claude đọc/ghi được trên công cụ đó. Hành động gửi/ghi đè luôn để người duyệt (human-in-the-loop)."],CUR=[[270, 167], [515, 120], [455, 266], [560, 164]],URLS=["claude.ai · Customize", "claude.ai · Customize", "claude.ai · Customize", "claude.ai · Customize"],N=4,cur=1,timer=null,prog=document.getElementById('prog');
+for(var i=0;i<N;i++)prog.appendChild(document.createElement('i'));
+function render(){document.querySelectorAll('.view').forEach(function(v){v.classList.toggle('on',+v.dataset.s===cur);});
+document.getElementById('vo').innerHTML=VO[cur-1];document.getElementById('stepn').textContent='Bước '+cur+' / '+N;
+document.getElementById('url').textContent=URLS[cur-1];
+var c=document.getElementById('cursor'),p=CUR[cur-1];c.style.left=p[0]+'px';c.style.top=p[1]+'px';
+var b=prog.children;for(var i=0;i<N;i++)b[i].classList.toggle('on',i<cur);}
+function go(n){if(n<1)n=N;if(n>N)n=1;cur=n;render();}
+function toggle(){var b=document.getElementById('playbtn');if(timer){clearInterval(timer);timer=null;b.textContent='▶ Tự chạy';}else{b.textContent='⏸ Dừng';timer=setInterval(function(){go(cur+1);},4500);}}
+render();
+</script></body></html>

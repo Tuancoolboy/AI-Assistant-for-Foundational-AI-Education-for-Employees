@@ -1,0 +1,38 @@
+---
+description: Bắt buộc tạo merge request (PR) vào nhánh develop — không merge thẳng main/develop
+alwaysApply: true
+---
+
+# Merge Request vào `develop` — Bắt buộc
+
+> Canonical source: `.agents/rules/merge-request-develop.md` — giữ đồng bộ khi sửa.
+> Áp dụng mọi AI agent (Cursor, Claude, Codex, Gemini, Antigravity, Copilot).
+
+## Nguyên tắc
+
+Mọi thay đổi code **phải đi qua MR/PR vào `develop`**.
+
+- Base branch MR/PR: **`develop`**
+- Không merge thẳng `main`/`master` trừ khi user yêu cầu rõ
+- Không push feature trực tiếp lên `develop` hoặc `main`
+- Không báo xong nếu chưa có MR vào `develop` (hoặc chưa hướng dẫn user mở MR)
+
+Nhánh feature từ `develop`: `.agents/rules/agent-workflow.md` §1.
+
+## Sau khi verify (lint + test + build)
+
+```bash
+git push -u origin HEAD
+gh pr create --base develop --title "..." --body "..."
+```
+
+**Bắt buộc:** `--base develop`. Trả user URL MR sau khi tạo.
+
+## Trước khi mở MR
+
+1. Nhánh feature từ `develop` (đã pull gần đây)
+2. lint + test + build pass
+3. `specs/PROJECT-CONTINUATION.md` đã cập nhật
+4. MR base = `develop`
+
+Chi tiết + ngoại lệ: `.agents/rules/merge-request-develop.md`.

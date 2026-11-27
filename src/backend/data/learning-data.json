@@ -1,0 +1,811 @@
+{
+  "generatedAt": "2026-06-22T14:59:41.384Z",
+  "modules": [
+    {
+      "id": "kinh-doanh-m1",
+      "role_id": "kinh-doanh",
+      "title": "AI là gì? Nó giúp được gì cho người bán hàng",
+      "duration_min": 15,
+      "level": 1,
+      "sort_order": 1,
+      "summary": "AI (Artificial Intelligence) là công cụ giúp bạn xử lý nhanh những việc lặp lại: soạn email, viết kịch bản, gợi ý ý tưởng. Với nhân viên bán hàng, AI giống như một trợ lý ngồi cạnh — bạn ra lệnh, nó làm nháp, bạn duyệt và gửi đi.",
+      "content": "AI (Artificial Intelligence) là công cụ giúp bạn xử lý nhanh những việc lặp lại: soạn email, viết kịch bản, gợi ý ý tưởng. Với nhân viên bán hàng, AI giống như một trợ lý ngồi cạnh — bạn ra lệnh, nó làm nháp, bạn duyệt và gửi đi.",
+      "learnings": [
+        "Hiểu AI bằng ngôn ngữ đời thường",
+        "3 việc AI làm tốt nhất cho sales",
+        "Điều AI KHÔNG thay được con người"
+      ],
+      "skills": [],
+      "isFoundation": false
+    },
+    {
+      "id": "kinh-doanh-m2",
+      "role_id": "kinh-doanh",
+      "title": "Dùng ChatGPT viết email & tin nhắn chào hàng",
+      "duration_min": 20,
+      "level": 1,
+      "sort_order": 2,
+      "summary": "Một prompt tốt = vai trò + bối cảnh + yêu cầu cụ thể. VD: 'Bạn là nhân viên bán đệm cao cấp. Viết email chào khách công ty 50 nhân viên vừa chuyển văn phòng, giọng thân thiện, tối đa 120 từ, kết bằng lời mời đặt lịch xem hàng.'",
+      "content": "Một prompt tốt = vai trò + bối cảnh + yêu cầu cụ thể. VD: 'Bạn là nhân viên bán đệm cao cấp. Viết email chào khách công ty 50 nhân viên vừa chuyển văn phòng, giọng thân thiện, tối đa 120 từ, kết bằng lời mời đặt lịch xem hàng.'",
+      "learnings": [
+        "Cấu trúc prompt tốt",
+        "Viết email chào khách trong 2 phút",
+        "Cá nhân hóa theo từng khách"
+      ],
+      "skills": [],
+      "isFoundation": false
+    },
+    {
+      "id": "kinh-doanh-m3",
+      "role_id": "kinh-doanh",
+      "title": "Kịch bản tư vấn & xử lý từ chối bằng AI",
+      "duration_min": 25,
+      "level": 2,
+      "sort_order": 3,
+      "summary": "AI giúp bạn luyện trả lời các câu từ chối khó nhằn: 'đắt quá', 'để em suy nghĩ', 'chỗ khác rẻ hơn'. Nhờ AI đóng vai khách khó tính, bạn phản xạ trước khi gặp khách thật.",
+      "content": "AI giúp bạn luyện trả lời các câu từ chối khó nhằn: 'đắt quá', 'để em suy nghĩ', 'chỗ khác rẻ hơn'. Nhờ AI đóng vai khách khó tính, bạn phản xạ trước khi gặp khách thật.",
+      "learnings": [
+        "Sinh nhiều phương án trả lời",
+        "Xử lý 'đắt quá', 'để em suy nghĩ'",
+        "Luyện phản xạ với AI đóng vai khách"
+      ],
+      "skills": [],
+      "isFoundation": false
+    },
+    {
+      "id": "kinh-doanh-m4",
+      "role_id": "kinh-doanh",
+      "title": "Phân tích nhu cầu khách từ lịch sử chat",
+      "duration_min": 20,
+      "level": 2,
+      "sort_order": 4,
+      "summary": "Copy lịch sử chat với khách, nhờ AI tóm tắt + chỉ ra tín hiệu mua hàng + gợi ý bước tiếp theo. Tiết kiệm 30 phút/khách.",
+      "content": "Copy lịch sử chat với khách, nhờ AI tóm tắt + chỉ ra tín hiệu mua hàng + gợi ý bước tiếp theo. Tiết kiệm 30 phút/khách.",
+      "learnings": [
+        "Tóm tắt hội thoại dài",
+        "Nhận ra tín hiệu mua hàng",
+        "Gợi ý bước tiếp theo"
+      ],
+      "skills": [],
+      "isFoundation": false
+    },
+    {
+      "id": "kinh-doanh-m5",
+      "role_id": "kinh-doanh",
+      "title": "Soạn báo giá & đề xuất nhanh với AI",
+      "duration_min": 20,
+      "level": 3,
+      "sort_order": 5,
+      "summary": "AI tạo bảng so sánh gói, viết đề xuất thuyết phục. Nhưng SỐ LIỆU PHẢI tự kiểm tra — AI hay 'bịa' giá tiền.",
+      "content": "AI tạo bảng so sánh gói, viết đề xuất thuyết phục. Nhưng SỐ LIỆU PHẢI tự kiểm tra — AI hay 'bịa' giá tiền.",
+      "learnings": [
+        "Tạo bảng so sánh gói",
+        "Viết đề xuất thuyết phục",
+        "Kiểm tra số liệu trước khi gửi"
+      ],
+      "skills": [],
+      "isFoundation": false
+    },
+    {
+      "id": "kinh-doanh-m6",
+      "role_id": "kinh-doanh",
+      "title": "Đạo đức & rủi ro: điều KHÔNG nên đưa cho AI",
+      "duration_min": 15,
+      "level": 3,
+      "sort_order": 6,
+      "summary": "KHÔNG dán số điện thoại, mã số thuế, hợp đồng mật vào ChatGPT công cộng. AI có thể bịa cam kết bạn không thể giữ. Luôn đọc lại trước khi gửi.",
+      "content": "KHÔNG dán số điện thoại, mã số thuế, hợp đồng mật vào ChatGPT công cộng. AI có thể bịa cam kết bạn không thể giữ. Luôn đọc lại trước khi gửi.",
+      "learnings": [
+        "Dữ liệu cá nhân khách hàng",
+        "Tránh AI 'bịa' cam kết",
+        "Luôn đọc lại trước khi gửi"
+      ],
+      "skills": [],
+      "isFoundation": false
+    },
+    {
+      "id": "ke-toan-m1",
+      "role_id": "ke-toan",
+      "title": "AI là gì? Nó giúp được gì cho kế toán",
+      "duration_min": 15,
+      "level": 1,
+      "sort_order": 1,
+      "summary": "AI giúp kế toán tóm tắt báo cáo dài, phân loại hóa đơn, hỏi công thức Excel. Nhưng SỐ LIỆU phải luôn tự đối chiếu — AI có thể 'bịa số'.",
+      "content": "AI giúp kế toán tóm tắt báo cáo dài, phân loại hóa đơn, hỏi công thức Excel. Nhưng SỐ LIỆU phải luôn tự đối chiếu — AI có thể 'bịa số'.",
+      "learnings": [
+        "AI bằng ngôn ngữ đời thường",
+        "Việc lặp lại AI làm thay được",
+        "Giới hạn & trách nhiệm của con người"
+      ],
+      "skills": [],
+      "isFoundation": false
+    },
+    {
+      "id": "ke-toan-m2",
+      "role_id": "ke-toan",
+      "title": "Dùng AI kiểm tra, phân loại & đối chiếu hóa đơn",
+      "duration_min": 25,
+      "level": 2,
+      "sort_order": 2,
+      "summary": "Copy danh sách hóa đơn (đã ẩn danh) vào AI → nhờ phân loại theo nhóm chi phí, phát hiện hóa đơn trùng/lệch.",
+      "content": "Copy danh sách hóa đơn (đã ẩn danh) vào AI → nhờ phân loại theo nhóm chi phí, phát hiện hóa đơn trùng/lệch.",
+      "learnings": [
+        "Phân loại hóa đơn theo nhóm",
+        "Phát hiện trùng/lệch",
+        "Quy trình an toàn với dữ liệu"
+      ],
+      "skills": [],
+      "isFoundation": false
+    },
+    {
+      "id": "ke-toan-m3",
+      "role_id": "ke-toan",
+      "title": "Tóm tắt báo cáo tài chính dài thành vài dòng",
+      "duration_min": 20,
+      "level": 2,
+      "sort_order": 3,
+      "summary": "Báo cáo 20 trang → 5 ý chính cho sếp đọc trong 30 giây. AI tóm tắt được nhưng các CHỈ SỐ cụ thể bạn phải tự verify.",
+      "content": "Báo cáo 20 trang → 5 ý chính cho sếp đọc trong 30 giây. AI tóm tắt được nhưng các CHỈ SỐ cụ thể bạn phải tự verify.",
+      "learnings": [
+        "Tóm tắt 20 trang còn 5 ý",
+        "Trích chỉ số quan trọng",
+        "Diễn giải cho sếp dễ hiểu"
+      ],
+      "skills": [],
+      "isFoundation": false
+    },
+    {
+      "id": "ke-toan-m4",
+      "role_id": "ke-toan",
+      "title": "Trích xuất số liệu từ chứng từ & PDF bằng AI",
+      "duration_min": 25,
+      "level": 2,
+      "sort_order": 4,
+      "summary": "ChatPDF + Claude đọc PDF chứng từ → trích thành bảng Excel. Luôn so lại với gốc trước khi nhập sổ.",
+      "content": "ChatPDF + Claude đọc PDF chứng từ → trích thành bảng Excel. Luôn so lại với gốc trước khi nhập sổ.",
+      "learnings": [
+        "Đọc PDF/ảnh chứng từ",
+        "Chuyển thành bảng",
+        "Kiểm tra lại với gốc"
+      ],
+      "skills": [],
+      "isFoundation": false
+    },
+    {
+      "id": "ke-toan-m5",
+      "role_id": "ke-toan",
+      "title": "Phát hiện số liệu bất thường với AI",
+      "duration_min": 20,
+      "level": 3,
+      "sort_order": 5,
+      "summary": "Nhờ AI so sánh kỳ này với kỳ trước, chỉ ra điểm lạ (chi phí tăng đột biến, doanh thu lệch nguyên tắc). KHÔNG tin số AI đưa ra mà chưa đối chiếu sổ gốc.",
+      "content": "Nhờ AI so sánh kỳ này với kỳ trước, chỉ ra điểm lạ (chi phí tăng đột biến, doanh thu lệch nguyên tắc). KHÔNG tin số AI đưa ra mà chưa đối chiếu sổ gốc.",
+      "learnings": [
+        "So sánh kỳ/kỳ",
+        "Cảnh báo điểm lạ",
+        "Không tin số AI mà chưa đối chiếu"
+      ],
+      "skills": [],
+      "isFoundation": false
+    },
+    {
+      "id": "ke-toan-m6",
+      "role_id": "ke-toan",
+      "title": "Bảo mật dữ liệu tài chính khi dùng AI",
+      "duration_min": 15,
+      "level": 3,
+      "sort_order": 6,
+      "summary": "KHÔNG đưa lương nhân viên, số tài khoản, MST khách lên ChatGPT công cộng. Hỏi kiến thức chung thì OK. Dữ liệu mật → ẩn danh hoặc dùng bản nội bộ.",
+      "content": "KHÔNG đưa lương nhân viên, số tài khoản, MST khách lên ChatGPT công cộng. Hỏi kiến thức chung thì OK. Dữ liệu mật → ẩn danh hoặc dùng bản nội bộ.",
+      "learnings": [
+        "Dữ liệu nào tuyệt đối không đưa lên",
+        "Ẩn danh trước khi hỏi",
+        "Công cụ nội bộ vs công cộng"
+      ],
+      "skills": [],
+      "isFoundation": false
+    },
+    {
+      "id": "ke-toan-m7",
+      "role_id": "ke-toan",
+      "title": "Đối chiếu công nợ & soạn email nhắc thu hồi bằng AI",
+      "duration_min": 20,
+      "level": 2,
+      "sort_order": 7,
+      "summary": "Copy bảng công nợ phải thu (đã ẩn tên khách), nhờ AI xếp theo tuổi nợ, đánh dấu khoản quá hạn và soạn sẵn email nhắc với giọng lịch sự. Việc dò tay cả buổi rút còn vài phút. Luôn đối chiếu lại số dư với sổ gốc trước khi gửi.",
+      "content": "Copy bảng công nợ phải thu (đã ẩn tên khách), nhờ AI xếp theo tuổi nợ, đánh dấu khoản quá hạn và soạn sẵn email nhắc với giọng lịch sự. Việc dò tay cả buổi rút còn vài phút. Luôn đối chiếu lại số dư với sổ gốc trước khi gửi.",
+      "learnings": [
+        "Phân nhóm nợ theo tuổi nợ (chưa tới hạn / quá hạn 30-60-90 ngày)",
+        "Soạn email nhắc thu hồi đúng giọng từng nhóm khách",
+        "Đối chiếu số dư với sổ gốc trước khi gửi"
+      ],
+      "skills": [],
+      "isFoundation": false
+    },
+    {
+      "id": "ke-toan-m8",
+      "role_id": "ke-toan",
+      "title": "Lập báo cáo quản trị nhanh cho sếp bằng AI",
+      "duration_min": 20,
+      "level": 3,
+      "sort_order": 8,
+      "summary": "Từ số liệu thô (doanh thu, chi phí, lợi nhuận theo tháng), nhờ AI viết bản tóm tắt quản trị 5 ý cho sếp: xu hướng, điểm bất thường, rủi ro, đề xuất. AI dựng khung và câu chữ, bạn kiểm số liệu. Tuyệt đối không để AI tự bịa con số — yêu cầu nó chỉ dùng dữ liệu bạn cung cấp.",
+      "content": "Từ số liệu thô (doanh thu, chi phí, lợi nhuận theo tháng), nhờ AI viết bản tóm tắt quản trị 5 ý cho sếp: xu hướng, điểm bất thường, rủi ro, đề xuất. AI dựng khung và câu chữ, bạn kiểm số liệu. Tuyệt đối không để AI tự bịa con số — yêu cầu nó chỉ dùng dữ liệu bạn cung cấp.",
+      "learnings": [
+        "Biến số liệu khô thành bản tóm tắt sếp đọc hiểu ngay",
+        "Yêu cầu AI chỉ dùng số bạn đưa, không tự bịa",
+        "Kiểm chứng mọi con số trước khi trình"
+      ],
+      "skills": [],
+      "isFoundation": false
+    },
+    {
+      "id": "marketing-m1",
+      "role_id": "marketing",
+      "title": "AI là gì? Nó giúp được gì cho marketing",
+      "duration_min": 15,
+      "level": 1,
+      "sort_order": 1,
+      "summary": "AI là người viết nháp giỏi — bạn là biên tập viên. Tạo 20 ý tưởng trong 1 phút, viết nháp đa kênh, sinh ảnh minh hoạ. Nhưng giọng văn cuối phải do bạn duyệt.",
+      "content": "AI là người viết nháp giỏi — bạn là biên tập viên. Tạo 20 ý tưởng trong 1 phút, viết nháp đa kênh, sinh ảnh minh hoạ. Nhưng giọng văn cuối phải do bạn duyệt.",
+      "learnings": [
+        "AI bằng ngôn ngữ đời thường",
+        "AI làm nháp — bạn làm biên tập",
+        "Việc AI hỗ trợ tốt nhất"
+      ],
+      "skills": [],
+      "isFoundation": false
+    },
+    {
+      "id": "marketing-m2",
+      "role_id": "marketing",
+      "title": "Viết content đa kênh (FB, email, web) với AI",
+      "duration_min": 25,
+      "level": 1,
+      "sort_order": 2,
+      "summary": "Một ý tưởng → nhiều định dạng: post FB ngắn, email dài, bài blog SEO, caption Instagram. Đưa mẫu giọng văn brand vào prompt để giữ tone.",
+      "content": "Một ý tưởng → nhiều định dạng: post FB ngắn, email dài, bài blog SEO, caption Instagram. Đưa mẫu giọng văn brand vào prompt để giữ tone.",
+      "learnings": [
+        "Một ý tưởng → nhiều định dạng",
+        "Giữ giọng thương hiệu",
+        "Prompt cho từng kênh"
+      ],
+      "skills": [],
+      "isFoundation": false
+    },
+    {
+      "id": "marketing-m3",
+      "role_id": "marketing",
+      "title": "Tạo ý tưởng & ảnh visual bằng AI",
+      "duration_min": 20,
+      "level": 2,
+      "sort_order": 3,
+      "summary": "Brainstorm 20 ý trong 1 phút với ChatGPT. Tạo ảnh minh hoạ với Midjourney/Canva AI. Mô tả ảnh càng chi tiết → AI vẽ càng đúng.",
+      "content": "Brainstorm 20 ý trong 1 phút với ChatGPT. Tạo ảnh minh hoạ với Midjourney/Canva AI. Mô tả ảnh càng chi tiết → AI vẽ càng đúng.",
+      "learnings": [
+        "Brainstorm 20 ý trong 1 phút",
+        "Tạo ảnh minh hoạ",
+        "Mô tả ảnh cho AI vẽ"
+      ],
+      "skills": [],
+      "isFoundation": false
+    },
+    {
+      "id": "marketing-m4",
+      "role_id": "marketing",
+      "title": "Lên lịch & kế hoạch nội dung 30 ngày với AI",
+      "duration_min": 20,
+      "level": 2,
+      "sort_order": 4,
+      "summary": "Khung content tháng theo 3 trụ cột (educate/inspire/sell). AI giúp phân bổ + tái sử dụng nội dung cũ thành format mới.",
+      "content": "Khung content tháng theo 3 trụ cột (educate/inspire/sell). AI giúp phân bổ + tái sử dụng nội dung cũ thành format mới.",
+      "learnings": [
+        "Khung content tháng",
+        "Phân bổ theo trụ cột",
+        "Tái sử dụng nội dung cũ"
+      ],
+      "skills": [],
+      "isFoundation": false
+    },
+    {
+      "id": "marketing-m5",
+      "role_id": "marketing",
+      "title": "Đọc số & phân tích hiệu quả chiến dịch",
+      "duration_min": 25,
+      "level": 3,
+      "sort_order": 5,
+      "summary": "Copy báo cáo Meta Ads/GA4 → nhờ AI giải thích. Đề xuất tối ưu dựa trên CPM, CTR, conversion. Nhưng QUYẾT ĐỊNH ngân sách vẫn do bạn.",
+      "content": "Copy báo cáo Meta Ads/GA4 → nhờ AI giải thích. Đề xuất tối ưu dựa trên CPM, CTR, conversion. Nhưng QUYẾT ĐỊNH ngân sách vẫn do bạn.",
+      "learnings": [
+        "Hiểu chỉ số cơ bản",
+        "Nhờ AI giải thích báo cáo",
+        "Đề xuất tối ưu"
+      ],
+      "skills": [],
+      "isFoundation": false
+    },
+    {
+      "id": "marketing-m6",
+      "role_id": "marketing",
+      "title": "Đạo đức nội dung AI & tránh 'giọng văn AI'",
+      "duration_min": 15,
+      "level": 3,
+      "sort_order": 6,
+      "summary": "Content AI thường nhạt: 'Hãy cùng khám phá', 'Trong thời đại số ngày nay'. Cần biên tập lại có cảm xúc, ví dụ cụ thể, ngôn ngữ thương hiệu. Minh bạch khi dùng AI.",
+      "content": "Content AI thường nhạt: 'Hãy cùng khám phá', 'Trong thời đại số ngày nay'. Cần biên tập lại có cảm xúc, ví dụ cụ thể, ngôn ngữ thương hiệu. Minh bạch khi dùng AI.",
+      "learnings": [
+        "Nhận ra văn AI nhạt",
+        "Biên tập cho có cảm xúc",
+        "Minh bạch khi dùng AI"
+      ],
+      "skills": [],
+      "isFoundation": false
+    },
+    {
+      "id": "van-hanh-m1",
+      "role_id": "van-hanh",
+      "title": "AI là gì? Nó giúp được gì cho hành chính & HR",
+      "duration_min": 15,
+      "level": 1,
+      "sort_order": 1,
+      "summary": "AI giúp tự động hóa việc lặp lại: email thông báo, tóm tắt biên bản, soạn quy trình, sàng lọc CV. Tiết kiệm 2-3 giờ/ngày cho việc cần phán đoán.",
+      "content": "AI giúp tự động hóa việc lặp lại: email thông báo, tóm tắt biên bản, soạn quy trình, sàng lọc CV. Tiết kiệm 2-3 giờ/ngày cho việc cần phán đoán.",
+      "learnings": [
+        "AI bằng ngôn ngữ đời thường",
+        "Tự động hoá việc lặp lại trong hành chính",
+        "Khi nào cần con người quyết"
+      ],
+      "skills": [
+        "nen-tang-ai"
+      ],
+      "isFoundation": true
+    },
+    {
+      "id": "van-hanh-m2",
+      "role_id": "van-hanh",
+      "title": "Viết prompt tốt & tự động hóa việc lặp lại",
+      "duration_min": 25,
+      "level": 1,
+      "sort_order": 2,
+      "summary": "Một prompt tốt = vai trò + bối cảnh + yêu cầu. Nhận diện việc lặp lại trong ngày → tạo prompt template tái dùng. VD: 'Soạn email từ chối ứng viên cho vị trí [VỊ TRÍ], giọng tôn trọng, gợi ý cơ hội khác'.",
+      "content": "Một prompt tốt = vai trò + bối cảnh + yêu cầu. Nhận diện việc lặp lại trong ngày → tạo prompt template tái dùng. VD: 'Soạn email từ chối ứng viên cho vị trí [VỊ TRÍ], giọng tôn trọng, gợi ý cơ hội khác'.",
+      "learnings": [
+        "Cấu trúc prompt vai trò + bối cảnh + yêu cầu",
+        "Mẫu prompt tái dùng cho việc lặp lại",
+        "Giảm thời gian thủ công"
+      ],
+      "skills": [
+        "viet-prompt"
+      ],
+      "isFoundation": true
+    },
+    {
+      "id": "van-hanh-m3",
+      "role_id": "van-hanh",
+      "title": "Tóm tắt & soạn email/biên bản công việc",
+      "duration_min": 20,
+      "level": 2,
+      "sort_order": 3,
+      "summary": "Biên bản họp 1 giờ → 5 ý chính + đầu việc + deadline. Email mẫu nhiều tình huống. Tiết kiệm 30 phút/họp.",
+      "content": "Biên bản họp 1 giờ → 5 ý chính + đầu việc + deadline. Email mẫu nhiều tình huống. Tiết kiệm 30 phút/họp.",
+      "learnings": [
+        "Tóm tắt biên bản họp",
+        "Soạn email theo mẫu",
+        "Trích đầu việc & deadline"
+      ],
+      "skills": [
+        "tom-tat-tai-lieu",
+        "email-noi-bo"
+      ],
+      "isFoundation": false
+    },
+    {
+      "id": "van-hanh-m4",
+      "role_id": "van-hanh",
+      "title": "Sắp xếp & tra cứu dữ liệu nhanh bằng AI",
+      "duration_min": 20,
+      "level": 2,
+      "sort_order": 4,
+      "summary": "Upload tài liệu SOP → AI giúp tra cứu nhanh. Tạo checklist tự động cho quy trình mới. Phân loại dữ liệu theo nhóm.",
+      "content": "Upload tài liệu SOP → AI giúp tra cứu nhanh. Tạo checklist tự động cho quy trình mới. Phân loại dữ liệu theo nhóm.",
+      "learnings": [
+        "Phân loại dữ liệu",
+        "Hỏi đáp trên tài liệu",
+        "Tạo checklist tự động"
+      ],
+      "skills": [],
+      "isFoundation": false
+    },
+    {
+      "id": "van-hanh-m5",
+      "role_id": "van-hanh",
+      "title": "Lập kế hoạch & điều phối lịch với AI",
+      "duration_min": 20,
+      "level": 3,
+      "sort_order": 5,
+      "summary": "AI giúp lập kế hoạch tuần dựa trên priority. Phân việc theo capacity team. Nhắc việc + theo dõi deadline.",
+      "content": "AI giúp lập kế hoạch tuần dựa trên priority. Phân việc theo capacity team. Nhắc việc + theo dõi deadline.",
+      "learnings": [
+        "Lập kế hoạch tuần",
+        "Phân việc hợp lý",
+        "Nhắc việc & theo dõi"
+      ],
+      "skills": [],
+      "isFoundation": false
+    },
+    {
+      "id": "van-hanh-m6",
+      "role_id": "van-hanh",
+      "title": "Rủi ro & cách kiểm soát khi dùng AI",
+      "duration_min": 15,
+      "level": 3,
+      "sort_order": 6,
+      "summary": "Hợp đồng, dữ liệu nhân viên mật KHÔNG đưa lên công cụ công cộng. Luôn đọc lại kết quả AI. Có quy tắc dùng AI an toàn cho team.",
+      "content": "Hợp đồng, dữ liệu nhân viên mật KHÔNG đưa lên công cụ công cộng. Luôn đọc lại kết quả AI. Có quy tắc dùng AI an toàn cho team.",
+      "learnings": [
+        "Dữ liệu mật & hợp đồng",
+        "Kiểm tra lại kết quả AI",
+        "Quy tắc dùng AI an toàn"
+      ],
+      "skills": [
+        "an-toan-du-lieu"
+      ],
+      "isFoundation": true
+    },
+    {
+      "id": "van-hanh-m7",
+      "role_id": "van-hanh",
+      "title": "Soạn quyết định & thông báo nội bộ bằng AI",
+      "duration_min": 20,
+      "level": 2,
+      "sort_order": 7,
+      "summary": "AI dựng nhanh khung văn bản hành chính đúng thể thức: quyết định, thông báo, công văn. Bạn chỉ điền số liệu và rà thể thức. Lưu ý: tên người, số quyết định thật phải tự điền, không để AI bịa.",
+      "content": "AI dựng nhanh khung văn bản hành chính đúng thể thức: quyết định, thông báo, công văn. Bạn chỉ điền số liệu và rà thể thức. Lưu ý: tên người, số quyết định thật phải tự điền, không để AI bịa.",
+      "learnings": [
+        "Khung văn bản đúng thể thức hành chính VN",
+        "Điền chỗ trống & rà lại trước khi ban hành",
+        "Không để AI bịa số/tên thật"
+      ],
+      "skills": [
+        "van-ban-hanh-chinh"
+      ],
+      "isFoundation": false
+    },
+    {
+      "id": "van-hanh-m8",
+      "role_id": "van-hanh",
+      "title": "Sàng lọc & tóm tắt CV tuyển dụng bằng AI",
+      "duration_min": 25,
+      "level": 2,
+      "sort_order": 8,
+      "summary": "Dán JD + nhiều CV (đã ẩn thông tin cá nhân) → AI xếp hạng mức khớp, tóm tắt điểm mạnh/yếu, gợi ý câu hỏi phỏng vấn. Việc đọc cả xấp CV rút còn vài phút. TUYỆT ĐỐI ẩn danh dữ liệu ứng viên trước khi đưa lên công cụ công cộng.",
+      "content": "Dán JD + nhiều CV (đã ẩn thông tin cá nhân) → AI xếp hạng mức khớp, tóm tắt điểm mạnh/yếu, gợi ý câu hỏi phỏng vấn. Việc đọc cả xấp CV rút còn vài phút. TUYỆT ĐỐI ẩn danh dữ liệu ứng viên trước khi đưa lên công cụ công cộng.",
+      "learnings": [
+        "Chấm CV theo mức khớp JD",
+        "Ẩn danh dữ liệu ứng viên trước khi hỏi AI",
+        "Gợi ý câu hỏi phỏng vấn sát vị trí"
+      ],
+      "skills": [
+        "loc-cv"
+      ],
+      "isFoundation": false
+    },
+    {
+      "id": "van-hanh-m9",
+      "role_id": "van-hanh",
+      "title": "Viết email nội bộ & truyền thông HR bằng AI",
+      "duration_min": 15,
+      "level": 1,
+      "sort_order": 9,
+      "summary": "AI giúp HR viết email nội bộ rõ ràng, đúng giọng công ty: thông báo chính sách, nhắc nộp hồ sơ, mời sự kiện. Một ý → nhiều bản (trang trọng/thân thiện) để chọn.",
+      "content": "AI giúp HR viết email nội bộ rõ ràng, đúng giọng công ty: thông báo chính sách, nhắc nộp hồ sơ, mời sự kiện. Một ý → nhiều bản (trang trọng/thân thiện) để chọn.",
+      "learnings": [
+        "Email nội bộ rõ ý, đúng giọng công ty",
+        "Nêu rõ hành động & hạn chót",
+        "Tạo nhiều phiên bản giọng để chọn"
+      ],
+      "skills": [
+        "email-noi-bo"
+      ],
+      "isFoundation": false
+    },
+    {
+      "id": "van-hanh-m10",
+      "role_id": "van-hanh",
+      "title": "Hỗ trợ chấm công & nghỉ phép bằng AI",
+      "duration_min": 20,
+      "level": 3,
+      "sort_order": 10,
+      "summary": "Dán bảng chấm công (ẩn tên) → AI phát hiện bất thường, tính phép tồn, dựng bản tóm tắt. AI hỗ trợ rà soát, còn con số cuối cùng HR phải đối chiếu hệ thống chấm công gốc.",
+      "content": "Dán bảng chấm công (ẩn tên) → AI phát hiện bất thường, tính phép tồn, dựng bản tóm tắt. AI hỗ trợ rà soát, còn con số cuối cùng HR phải đối chiếu hệ thống chấm công gốc.",
+      "learnings": [
+        "Phát hiện ngày công bất thường",
+        "Tính phép tồn theo quy định công ty",
+        "Đối chiếu lại với hệ thống gốc trước khi chốt"
+      ],
+      "skills": [
+        "cham-cong-nghi-phep"
+      ],
+      "isFoundation": false
+    },
+    {
+      "id": "khac-m1",
+      "role_id": "khac",
+      "title": "AI là gì? Nó giúp được gì cho nhân viên văn phòng",
+      "duration_min": 15,
+      "level": 1,
+      "sort_order": 1,
+      "summary": "AI giúp bạn xử lý nhanh email, tóm tắt tài liệu, lên checklist công việc — những việc lặp lại mỗi ngày. Bạn ra lệnh rõ, AI làm nháp, bạn duyệt rồi gửi.",
+      "content": "AI giúp bạn xử lý nhanh email, tóm tắt tài liệu, lên checklist công việc — những việc lặp lại mỗi ngày. Bạn ra lệnh rõ, AI làm nháp, bạn duyệt rồi gửi.",
+      "learnings": [
+        "Hiểu AI bằng ngôn ngữ đời thường",
+        "3 việc AI làm tốt cho văn phòng",
+        "Điều AI không thay được con người"
+      ],
+      "skills": [],
+      "isFoundation": false
+    },
+    {
+      "id": "khac-m2",
+      "role_id": "khac",
+      "title": "Viết email & tin nhắn công việc bằng AI",
+      "duration_min": 20,
+      "level": 1,
+      "sort_order": 2,
+      "summary": "Prompt tốt = vai trò + bối cảnh + yêu cầu. VD: 'Bạn là nhân viên hành chính. Viết email nhắc họp lúc 14h thứ Sáu, giọng lịch sự, ≤100 từ, có link phòng họp.'",
+      "content": "Prompt tốt = vai trò + bối cảnh + yêu cầu. VD: 'Bạn là nhân viên hành chính. Viết email nhắc họp lúc 14h thứ Sáu, giọng lịch sự, ≤100 từ, có link phòng họp.'",
+      "learnings": [
+        "Cấu trúc prompt email",
+        "Giọng văn phù hợp tình huống",
+        "Luôn đọc lại trước khi gửi"
+      ],
+      "skills": [],
+      "isFoundation": false
+    },
+    {
+      "id": "khac-m3",
+      "role_id": "khac",
+      "title": "Tóm tắt tài liệu & biên bản dài",
+      "duration_min": 20,
+      "level": 2,
+      "sort_order": 3,
+      "summary": "Dán nội dung (đã ẩn danh) → nhờ AI tóm tắt 5 ý chính + đầu việc + deadline. Tiết kiệm 20–30 phút mỗi lần đọc tài liệu dài.",
+      "content": "Dán nội dung (đã ẩn danh) → nhờ AI tóm tắt 5 ý chính + đầu việc + deadline. Tiết kiệm 20–30 phút mỗi lần đọc tài liệu dài.",
+      "learnings": [
+        "Tóm tắt có cấu trúc",
+        "Trích đầu việc & deadline",
+        "Ẩn danh dữ liệu nhạy cảm"
+      ],
+      "skills": [],
+      "isFoundation": false
+    },
+    {
+      "id": "khac-m4",
+      "role_id": "khac",
+      "title": "Lên checklist & kế hoạch tuần",
+      "duration_min": 20,
+      "level": 2,
+      "sort_order": 4,
+      "summary": "Liệt kê việc cần làm → AI gợi ý thứ tự ưu tiên, chia theo ngày, nhắc deadline. Dùng cho công việc cá nhân hoặc hỗ trợ team nhỏ.",
+      "content": "Liệt kê việc cần làm → AI gợi ý thứ tự ưu tiên, chia theo ngày, nhắc deadline. Dùng cho công việc cá nhân hoặc hỗ trợ team nhỏ.",
+      "learnings": [
+        "Ưu tiên công việc",
+        "Chia việc theo ngày",
+        "Theo dõi deadline"
+      ],
+      "skills": [],
+      "isFoundation": false
+    },
+    {
+      "id": "khac-m5",
+      "role_id": "khac",
+      "title": "Họp & ghi chú nhanh với AI",
+      "duration_min": 20,
+      "level": 3,
+      "sort_order": 5,
+      "summary": "Ghi chú thô trong họp → AI soạn biên bản: chủ đề, quyết định, người phụ trách, việc cần làm. Gửi team trong 10 phút sau họp.",
+      "content": "Ghi chú thô trong họp → AI soạn biên bản: chủ đề, quyết định, người phụ trách, việc cần làm. Gửi team trong 10 phút sau họp.",
+      "learnings": [
+        "Biên bản họp gọn",
+        "Phân công rõ ràng",
+        "Gửi sớm sau họp"
+      ],
+      "skills": [],
+      "isFoundation": false
+    },
+    {
+      "id": "khac-m6",
+      "role_id": "khac",
+      "title": "An toàn dữ liệu khi dùng AI",
+      "duration_min": 15,
+      "level": 3,
+      "sort_order": 6,
+      "summary": "Không đưa lương, hợp đồng mật, CMND, mật khẩu lên công cụ AI công cộng. Mô tả tình huống chung, ẩn tên khách hàng.",
+      "content": "Không đưa lương, hợp đồng mật, CMND, mật khẩu lên công cụ AI công cộng. Mô tả tình huống chung, ẩn tên khách hàng.",
+      "learnings": [
+        "Dữ liệu không nên paste",
+        "Ẩn danh khi hỏi AI",
+        "Kiểm tra lại kết quả"
+      ],
+      "skills": [],
+      "isFoundation": false
+    }
+  ],
+  "quizzes": {
+    "kinh-doanh": [
+      {
+        "question": "Khách nhắn: «Bên em đắt quá so với chỗ khác». Bạn muốn dùng AI soạn câu trả lời. Cách làm ĐÚNG nhất?",
+        "options": [
+          "Dán nguyên thông tin khách (tên, SĐT, công ty) vào ChatGPT rồi bảo nó trả lời",
+          "Mô tả tình huống chung (không kèm dữ liệu cá nhân) và nhờ AI gợi ý 3 hướng trả lời tập trung vào giá trị",
+          "Bảo AI tự bịa một mức giảm giá để chốt đơn",
+          "Gửi luôn câu trả lời AI viết mà không đọc lại"
+        ],
+        "correctIndex": 1,
+        "explanation": "Không đưa dữ liệu cá nhân của khách vào công cụ AI công cộng. Hãy mô tả tình huống chung, lấy gợi ý rồi tự điều chỉnh và kiểm tra trước khi gửi."
+      },
+      {
+        "question": "AI giúp người bán hàng việc nào TỐT nhất?",
+        "options": [
+          "Tự động hiểu cảm xúc thật của khách qua điện thoại",
+          "Gợi ý ý tưởng & soạn nháp email/kịch bản để bạn chỉnh sửa",
+          "Thay bạn ra quyết định giảm giá",
+          "Đảm bảo chốt được 100% đơn"
+        ],
+        "correctIndex": 1,
+        "explanation": "AI mạnh ở việc tạo nháp, gợi ý ý tưởng, tiết kiệm thời gian — còn quyết định cuối cùng vẫn là con người."
+      },
+      {
+        "question": "Prompt nào sẽ cho kết quả TỐT hơn khi nhờ AI viết email chào hàng?",
+        "options": [
+          "«Viết email bán hàng»",
+          "«Viết email chào ghế văn phòng cao cấp, gửi công ty 50 nhân viên vừa chuyển văn phòng, giọng thân thiện, ≤120 từ, có lời mời đặt lịch xem hàng»",
+          "«Email»",
+          "«Bán đi»"
+        ],
+        "correctIndex": 1,
+        "explanation": "Prompt càng cụ thể (đối tượng, bối cảnh, giọng văn, độ dài, mục tiêu) thì AI trả kết quả càng sát thực tế."
+      }
+    ],
+    "ke-toan": [
+      {
+        "question": "Dữ liệu nào bạn TUYỆT ĐỐI không nên dán vào công cụ AI công cộng?",
+        "options": [
+          "Định nghĩa «khấu hao là gì»",
+          "Bảng lương chi tiết kèm tên & số tài khoản nhân viên",
+          "Câu hỏi về cách dùng hàm Excel",
+          "Câu hỏi về chuẩn mực kế toán chung"
+        ],
+        "correctIndex": 1,
+        "explanation": "Thông tin nhạy cảm (lương, tài khoản, MST khách) không nên đưa lên công cụ công cộng. Hỏi kiến thức chung thì an toàn."
+      },
+      {
+        "question": "AI có thể giúp kế toán việc nào?",
+        "options": [
+          "Tự động nộp thuế thay bạn",
+          "Tóm tắt nhanh báo cáo tài chính 20 trang để bạn nắm ý chính",
+          "Đảm bảo sổ sách không bao giờ sai",
+          "Thay kế toán trưởng ký duyệt"
+        ],
+        "correctIndex": 1,
+        "explanation": "AI giỏi tóm tắt, phân loại, trích xuất — nhưng con người vẫn phải kiểm tra và chịu trách nhiệm cuối cùng."
+      },
+      {
+        "question": "AI trả lời một con số tài chính rất cụ thể mà bạn không chắc đúng. Bạn nên?",
+        "options": [
+          "Tin ngay vì AI thông minh",
+          "Đối chiếu lại với chứng từ/sổ gốc trước khi dùng",
+          "Gửi luôn cho sếp",
+          "Bỏ qua hoàn toàn AI"
+        ],
+        "correctIndex": 1,
+        "explanation": "AI có thể «bịa số» (ảo giác). Luôn đối chiếu số liệu với nguồn gốc trước khi sử dụng."
+      }
+    ],
+    "marketing": [
+      {
+        "question": "Làm sao để content AI viết không bị «giọng văn AI» nhạt nhẽo?",
+        "options": [
+          "Cứ đăng nguyên văn AI viết",
+          "Cho AI ví dụ giọng văn thương hiệu + tự biên tập lại cho có cảm xúc",
+          "Viết prompt 1 chữ «content»",
+          "Dịch qua lại nhiều thứ tiếng"
+        ],
+        "correctIndex": 1,
+        "explanation": "Hãy đưa AI mẫu giọng văn của thương hiệu và luôn biên tập lại — AI là người viết nháp, bạn là biên tập viên."
+      },
+      {
+        "question": "AI hữu ích nhất cho marketing ở khâu nào?",
+        "options": [
+          "Thay bạn hiểu sâu insight khách hàng mà không cần dữ liệu",
+          "Tạo nhanh nhiều phương án tiêu đề, ý tưởng, bài nháp để chọn lọc",
+          "Đảm bảo bài viral",
+          "Tự chạy quảng cáo không cần người"
+        ],
+        "correctIndex": 1,
+        "explanation": "AI giúp tạo nhiều phương án thật nhanh để bạn chọn lọc — sáng tạo và phán đoán vẫn cần con người."
+      },
+      {
+        "question": "Bạn cần 10 tiêu đề cho bài về đệm ngủ cao cấp. Prompt nào tốt hơn?",
+        "options": [
+          "«Cho tiêu đề»",
+          "«Viết 10 tiêu đề Facebook cho đệm cao cấp nhập khẩu, đối tượng 35–55 tuổi quan tâm giấc ngủ, giọng sang trọng mà gần gũi, mỗi tiêu đề ≤12 từ»",
+          "«Đệm»",
+          "«Hay vào»"
+        ],
+        "correctIndex": 1,
+        "explanation": "Cụ thể về đối tượng, sản phẩm, giọng văn, số lượng, độ dài → kết quả sát hơn nhiều."
+      }
+    ],
+    "van-hanh": [
+      {
+        "question": "Việc lặp đi lặp lại nào AI giúp được nhiều nhất?",
+        "options": [
+          "Soạn đi soạn lại email thông báo theo mẫu",
+          "Quyết định tuyển ai vào công ty",
+          "Ký hợp đồng",
+          "Thay bạn họp với sếp"
+        ],
+        "correctIndex": 0,
+        "explanation": "AI giỏi các việc lặp lại theo mẫu (email, tóm tắt, phân loại) — giải phóng thời gian cho việc cần phán đoán."
+      },
+      {
+        "question": "Bạn nhờ AI tóm tắt một biên bản họp dài. Bước quan trọng sau đó?",
+        "options": [
+          "Tin tuyệt đối bản tóm tắt",
+          "Đọc lại & đối chiếu các đầu việc/điểm quan trọng",
+          "Xóa biên bản gốc",
+          "Gửi ngay cho cả công ty"
+        ],
+        "correctIndex": 1,
+        "explanation": "Luôn kiểm tra lại bản tóm tắt, nhất là các đầu việc và con số quan trọng trước khi dùng."
+      },
+      {
+        "question": "Điều nào KHÔNG nên làm khi dùng AI trong công việc?",
+        "options": [
+          "Dùng AI để soạn nháp email",
+          "Đưa toàn bộ dữ liệu khách hàng & hợp đồng mật lên công cụ công cộng",
+          "Nhờ AI tóm tắt tài liệu công khai",
+          "Hỏi AI cách dùng phần mềm"
+        ],
+        "correctIndex": 1,
+        "explanation": "Không đưa dữ liệu mật/cá nhân lên công cụ AI công cộng. Dùng cho việc chung công khai thì an toàn."
+      }
+    ],
+    "khac": [
+      {
+        "question": "Việc nào AI giúp nhân viên văn phòng hiệu quả nhất?",
+        "options": [
+          "Soạn nháp email và tóm tắt tài liệu",
+          "Quyết định sa thải nhân viên",
+          "Ký hợp đồng thay sếp",
+          "Thay bạn đi họp với khách"
+        ],
+        "correctIndex": 0,
+        "explanation": "AI mạnh ở việc lặp lại theo mẫu: email, tóm tắt, checklist — giải phóng thời gian cho việc cần phán đoán."
+      },
+      {
+        "question": "Bạn nhờ AI tóm tắt biên bản họp. Bước quan trọng sau đó?",
+        "options": [
+          "Gửi ngay không đọc",
+          "Đối chiếu đầu việc và deadline với ghi chú gốc",
+          "Xóa biên bản gốc",
+          "Đăng lên mạng xã hội"
+        ],
+        "correctIndex": 1,
+        "explanation": "Luôn kiểm tra lại — AI có thể bỏ sót hoặc hiểu sai chi tiết quan trọng."
+      },
+      {
+        "question": "Điều KHÔNG nên làm khi dùng AI ở công ty?",
+        "options": [
+          "Dùng AI soạn nháp email nội bộ",
+          "Paste toàn bộ hồ sơ nhân sự mật lên ChatGPT công cộng",
+          "Hỏi AI cách dùng Excel",
+          "Nhờ AI lên checklist tuần"
+        ],
+        "correctIndex": 1,
+        "explanation": "Dữ liệu nhân sự, lương, hợp đồng mật không đưa lên công cụ AI công cộng."
+      }
+    ]
+  }
+}

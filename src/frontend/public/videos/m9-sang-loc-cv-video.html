@@ -1,0 +1,84 @@
+<!DOCTYPE html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Video — m9: Đính JD + CV để chấm</title><style>:root{color-scheme:light;--coral:#E8714A;--ink:#1f2421;--bd:#e8e2dc;--mut:#8a857e;--bg:#FBF7F4;--side:#f7f5f3}
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',Roboto,Arial,sans-serif}
+body{background:var(--bg);color:var(--ink);padding:16px}
+.wrap{width:720px;max-width:100%;margin:0 auto}
+.hd{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:10px}
+.hd h1{font-size:16px;font-weight:700;color:var(--coral)} .hd .stepn{font-size:12px;color:var(--mut)}
+.screen{position:relative;width:720px;max-width:100%;height:400px;background:#fff;border:1px solid var(--bd);border-radius:12px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.10)}
+.bar{position:absolute;left:0;top:0;right:0;height:40px;display:flex;align-items:center;gap:7px;padding:0 12px;background:#fcfbfa;border-bottom:1px solid var(--bd);z-index:2}
+.dot{width:9px;height:9px;border-radius:50%} .url{flex:1;margin-left:8px;font-size:11px;color:var(--mut)}
+.view{display:none} .view.on{display:block}
+.txt{position:absolute;z-index:1}
+.panel{position:absolute;background:var(--side);border:1px solid var(--bd);border-radius:10px;z-index:1}
+.tgt{position:absolute;z-index:3;display:flex;align-items:center;justify-content:center;text-align:center;background:var(--coral);color:#fff;font-size:12.5px;font-weight:600;border-radius:9px;padding:0 8px}
+.tgt.ghost{background:#fff;border:1.5px solid var(--bd);color:var(--ink)}
+.tgt.field{background:#fff;border:1.5px solid var(--bd);color:var(--mut);font-weight:400;justify-content:flex-start;padding-left:12px}
+.tgt.chip{background:#FFF3EE;border:1px solid #f3cdbd;color:#7a4631;font-size:10.5px;font-weight:500;border-radius:7px}
+.tgt.box{background:#fff;border:1.5px solid var(--coral);color:#3f3a33;font-weight:400;font-size:11px;line-height:1.4;justify-content:flex-start;align-items:flex-start;text-align:left;padding:9px 11px}
+.tgt.msg{background:#fff;border:1px solid var(--bd);color:var(--ink);font-size:12px;font-weight:400;justify-content:flex-start;text-align:left;padding:9px 11px;line-height:1.45}
+.spot{position:absolute;z-index:5;border:2.5px solid var(--coral);border-radius:10px;box-shadow:0 0 0 9999px rgba(22,24,22,.48);pointer-events:none;animation:pulse 1.5s ease-in-out infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 9999px rgba(22,24,22,.48)}50%{box-shadow:0 0 0 9999px rgba(22,24,22,.40)}}
+.tip{position:absolute;z-index:7;background:var(--ink);color:#fff;border-radius:10px;padding:10px 13px;width:236px;font-size:12.5px;line-height:1.45;box-shadow:0 8px 22px rgba(0,0,0,.3)}
+.tip .n{display:inline-block;background:var(--coral);font-size:10px;font-weight:700;padding:2px 8px;border-radius:12px;margin-bottom:6px} .tip b{color:#ffd9c9}
+.cursor{position:absolute;z-index:9;width:22px;height:22px;transition:all .55s cubic-bezier(.6,0,.2,1)}
+.vo{margin-top:12px;background:#fff;border:1px solid var(--bd);border-left:3px solid var(--coral);border-radius:9px;padding:11px 14px;font-size:13.5px;line-height:1.5;min-height:64px} .vo b{color:var(--coral)}
+.ctrl{display:flex;align-items:center;gap:10px;margin-top:12px}
+.ctrl button{cursor:pointer;border:none;border-radius:9px;padding:9px 15px;font-size:13px;font-weight:600}
+.prev{background:#fff;border:1px solid var(--bd)!important;color:var(--ink)} .play{background:var(--ink);color:#fff} .next{background:var(--coral);color:#fff}
+.prog{flex:1;display:flex;gap:5px} .prog i{flex:1;height:5px;border-radius:3px;background:#e3ddd6} .prog i.on{background:var(--coral)}</style></head><body><div class="wrap">
+<div class="hd"><h1>🎬 m9 — Sàng lọc CV: đính JD + nhiều CV</h1><span class="stepn" id="stepn">Bước 1 / 4</span></div>
+<div class="screen">
+ <div class="bar"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span><span class="url" id="url">claude.ai/new</span></div>
+ <div class="view on" data-s="1">
+   <div class="txt" style="left:0;right:0;top:120px;text-align:center;font-size:15px;color:var(--mut)">Sàng lọc CV — bắt đầu</div>
+   <div class="tgt" style="left:40px;top:330px;width:34px;height:34px;border-radius:8px;font-size:18px">＋</div>
+   <div class="tgt field" style="left:84px;top:330px;width:520px;height:34px;align-items:center">Nhập nội dung…</div>
+   <div class="tgt ghost" style="left:620px;top:330px;width:46px;height:34px">➤</div>
+   <div class="spot" style="left:40px;top:330px;width:34px;height:34px"></div>
+   <div class="tip" style="left:120px;top:250px"><span class="n">Bước 1</span>Bấm nút <b>＋</b> ở khung nhập để đính file: chọn <b>JD + tất cả CV</b> (đã ẩn danh).</div>
+ </div>
+ <div class="view" data-s="2">
+   <div class="tgt chip" style="left:84px;top:288px;width:80px;height:26px">📎 JD.pdf</div>
+   <div class="tgt chip" style="left:172px;top:288px;width:92px;height:26px">📎 CV_A.pdf</div>
+   <div class="tgt chip" style="left:272px;top:288px;width:92px;height:26px">📎 CV_B.pdf</div>
+   <div class="tgt chip" style="left:372px;top:288px;width:92px;height:26px">📎 CV_C.pdf</div>
+   <div class="tgt field" style="left:84px;top:330px;width:520px;height:34px;align-items:center;color:var(--ink)">Chấm 3 CV theo JD: thang KN/Kỹ năng/Phù hợp, nêu cờ đỏ, không tự loại.</div>
+   <div class="tgt ghost" style="left:620px;top:330px;width:46px;height:34px">➤</div>
+   <div class="spot" style="left:84px;top:286px;width:382px;height:30px"></div>
+   <div class="tip" style="left:120px;top:200px"><span class="n">Bước 2</span>File hiện thành thẻ đính kèm. Gõ yêu cầu chấm điểm (đặt rõ thang &amp; nguyên tắc).</div>
+ </div>
+ <div class="view" data-s="3">
+   <div class="tgt chip" style="left:84px;top:288px;width:80px;height:26px">📎 JD.pdf</div>
+   <div class="tgt chip" style="left:172px;top:288px;width:92px;height:26px">📎 CV_A.pdf</div>
+   <div class="tgt field" style="left:84px;top:330px;width:520px;height:34px;align-items:center;color:var(--ink)">Chấm 3 CV theo JD…</div>
+   <div class="tgt" style="left:620px;top:330px;width:46px;height:34px;font-size:16px">➤</div>
+   <div class="spot" style="left:620px;top:330px;width:46px;height:34px"></div>
+   <div class="tip" style="left:120px;top:250px"><span class="n">Bước 3</span>Bấm <b>Gửi</b> để Claude chấm. Vài giây có kết quả.</div>
+ </div>
+ <div class="view" data-s="4">
+   <div class="tgt msg" style="left:50px;top:64px;width:620px;height:150px">📊 <b style="color:var(--coral)">Bảng xếp hạng</b><br>1. Ứng viên A — 8.5 (mạnh: kinh nghiệm sát JD)<br>2. Ứng viên B — 7.0<br>3. Ứng viên C — 6.0 ⚠ cờ đỏ: ghi '4 năm' nhưng mốc ~2 năm — cần verify.<br>→ Đề xuất mời phỏng vấn A, B. (Bạn quyết định cuối.)</div>
+   <div class="spot" style="left:50px;top:64px;width:620px;height:150px"></div>
+   <div class="tip" style="left:240px;top:236px"><span class="n">Bước 4 ✓</span>Đọc bảng + cờ đỏ. <b>AI gợi ý, bạn quyết định</b> ai vào phỏng vấn.</div>
+ </div>
+ <div class="cursor" id="cursor"><svg viewBox="0 0 24 24" width="22" height="22"><path d="M4 2 L4 20 L9 15 L12 22 L15 21 L12 14 L19 14 Z" fill="#1f2421" stroke="#fff" stroke-width="1.3"/></svg></div>
+</div>
+<div class="vo" id="vo"></div>
+<div class="ctrl"><button class="prev" onclick="go(cur-1)">◀ Trước</button><button class="play" id="playbtn" onclick="toggle()">▶ Tự chạy</button><button class="next" onclick="go(cur+1)">Tiếp ▶</button><div class="prog" id="prog"></div></div>
+</div>
+<script>
+var VO=["<b>Bước 1:</b> Mở chat mới. Bấm nút <b>＋</b> ở khung nhập để đính file — chọn JD và tất cả CV (đã ẩn danh).",
+"<b>Bước 2:</b> File hiện thành thẻ đính kèm phía trên. Gõ yêu cầu chấm điểm: nêu rõ thang điểm và nguyên tắc 'không tự loại'.",
+"<b>Bước 3:</b> Bấm nút <b>Gửi</b>. Vài giây Claude trả kết quả.",
+"<b>Bước 4:</b> Đọc bảng xếp hạng và cờ đỏ. AI gợi ý — bạn là người quyết định ai vào phỏng vấn."];
+var CUR=[[57,347],[300,303],[643,347],[560,140]];
+var cur=1,timer=null,N=4,prog=document.getElementById('prog');
+for(var i=0;i<N;i++)prog.appendChild(document.createElement('i'));
+function render(){document.querySelectorAll('.view').forEach(function(v){v.classList.toggle('on',+v.dataset.s===cur);});
+ document.getElementById('vo').innerHTML=VO[cur-1];document.getElementById('stepn').textContent='Bước '+cur+' / '+N;
+ var c=document.getElementById('cursor'),p=CUR[cur-1];c.style.left=p[0]+'px';c.style.top=p[1]+'px';
+ var b=prog.children;for(var i=0;i<N;i++)b[i].classList.toggle('on',i<cur);}
+function go(n){if(n<1)n=N;if(n>N)n=1;cur=n;render();}
+function toggle(){var b=document.getElementById('playbtn');if(timer){clearInterval(timer);timer=null;b.textContent='▶ Tự chạy';}else{b.textContent='⏸ Dừng';timer=setInterval(function(){go(cur+1);},4500);}}
+render();
+</script></body></html>
