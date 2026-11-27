@@ -6,7 +6,6 @@ import Link from "next/link";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 import { getAuthErrorMessage } from "@/lib/auth-messages";
 import { buildOAuthCallbackUrl, resolveOAuthNextPath } from "@/lib/google-oauth";
-import { AuthDivider, AuthGoogleButton } from "@/components/auth-google-button";
 import {
   DEMO_ONBOARDED_COOKIE,
   DEMO_SESSION_COOKIE,
@@ -120,8 +119,6 @@ export function AuthRegisterForm() {
 
   return (
     <div className="space-y-4">
-      <AuthGoogleButton nextPath={rawNext} label="Đăng ký bằng Google" />
-      <AuthDivider />
       <form onSubmit={handleSubmit} className="space-y-4">
       <div className="space-y-1.5">
         <label htmlFor="fullName" className="block text-sm font-semibold text-ink-2">
