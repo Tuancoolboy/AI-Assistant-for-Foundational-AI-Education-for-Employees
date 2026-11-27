@@ -2688,3 +2688,22 @@ Review toàn diff phát hiện parser chỉ đúng khi cặp tag nằm trong cù
 - Quyết định: chỉ gỡ hook Codex của dự án; không sửa hook của công cụ khác hoặc dữ liệu log. Chưa xác định nguyên nhân lỗi thực tế từ thông báo.
 - Kiểm tra: parse JSON thành công, xác nhận hooks rỗng; không chạy lint/test/build vì chỉ thay cấu hình hook, không đổi mã ứng dụng.
 - Follow-up: mở phiên Codex mới nếu phiên hiện tại vẫn giữ cấu hình hook cũ. Bản tải về không có Git repo riêng nên chưa tạo nhánh/PR.
+
+### 27/11/2026 — Bootstrap Supabase từ .env.local
+
+- Mục tiêu: liên kết project Supabase do người dùng cấu hình và áp dụng migrations hiện có; không sao chép dữ liệu từ project cũ.
+- Phạm vi file: chỉ cập nhật WORKLOG.md và specs/PROJECT-CONTINUATION.md; .env.local và supabase/.temp được Git bỏ qua, không ghi secrets vào tài liệu.
+- Quyết định: dùng Supabase CLI 2.109.0 vì CLI 3.4.0 từ chối cấu hình [inbucket] hiện có.
+- Lỗi bootstrap: migration 20260612100000 tạo learning_paths bằng CREATE TABLE IF NOT EXISTS nhưng migration 20260611120000 đã tạo bảng với schema cũ, thiếu status và các field Phase 2.
+- Xử lý vận hành: xác nhận learning_paths có 0 dòng; bổ sung trực tiếp scope (organization/global, mặc định organization), path_type (common/specialist, mặc định specialist), job_role_id, title, status (draft/published/archived, mặc định draft), updated_at. Backfill title từ name rồi đặt NOT NULL. Thực hiện trong transaction qua PostgreSQL với xác minh chứng chỉ CA Supabase; không sửa migration cũ, không đánh dấu migration chưa chạy là applied.
+- Kiểm tra: npm run db:validate pass (65 files); push thành công; dry-run sau push báo "Remote database is up to date". PostgreSQL xác nhận 65 migration đã applied, 61/61 bảng public bật RLS; learning_modules có 0 dòng. Không chạy lint/test/build vì chỉ thao tác vận hành database và cập nhật tài liệu; node_modules chưa được cài.
+- Follow-up: bootstrap một project mới khác vẫn cần bước tương thích learning_paths trước migration 20260612100000; sửa quy trình bootstrap trong task riêng. Chưa kiểm thử runtime ứng dụng; node_modules chưa được cài.
+
+### 27/11/2026 — Gỡ đăng nhập Google theo yêu cầu
+
+- Mục tiêu: chỉ hiển thị đăng nhập/đăng ký bằng email và mật khẩu.
+- File: auth-login-form.tsx, auth-register-form.tsx, manager-team-list.tsx; xóa auth-google-button.tsx; cập nhật scripts/test-phase2-auth-oauth.mjs và note ad-hoc.
+- Quyết định: giữ helper URL callback/next vì xác nhận email, đổi email và link mời vẫn sử dụng; giữ callback và các identity đã tồn tại. Không thay đổi cấu hình Google provider trên Supabase trong task này.
+- Git: remote mới chưa có develop; tạo develop từ origin/main và làm trên fix/remove-google-login. Các ghi chú bootstrap Supabase chưa commit từ task trước được giữ nguyên.
+- Kiểm tra: lint pass (0 lỗi, 16 warnings có sẵn); 625/625 unit tests pass; build production pass. Integration: Phase 1 30/30, auth 8/8 (case duplicate-email bỏ qua vì thiếu key), activity 3/3; manager/invite real-mode bỏ qua vì thiếu Supabase keys. Python thiếu pytest-asyncio; sau khi cài plugin vào /tmp chạy lại có 102/103 pass, 1 lỗi test_api_inventory do danh sách route backend (không đổi Python trong task). npm run test nuốt lỗi pytest nên không coi exit 0 là toàn bộ suite pass. git diff --check pass. Không kiểm thử đăng nhập Supabase thật.
+- Follow-up: merge PR vào develop; đưa thay đổi lên main và redeploy để áp dụng production.

@@ -646,8 +646,8 @@ function AddMemberModal({
             </div>
           </div>
           <p className="rounded-xl border border-dashed border-line bg-secondary/20 px-3 py-2 text-xs text-ink-3">
-            Nhân viên nhận email mời → đăng nhập (ưu tiên &quot;Đăng nhập với
-            Google&quot;) → được gán đúng phòng/vị trí đã chọn.
+            Nhân viên nhận email mời → đăng nhập bằng email và mật khẩu → được
+            gán đúng phòng/vị trí đã chọn.
           </p>
 
           <label className="flex items-start gap-3 rounded-xl border border-line bg-secondary/30 px-4 py-3 text-sm text-ink-2">
