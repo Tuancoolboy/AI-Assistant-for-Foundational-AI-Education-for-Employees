@@ -160,19 +160,18 @@ async function testDuplicateEmailBlocked() {
   }
 }
 
-async function testLoginPageShowsGoogleWhenConfigured() {
-  const res = await fetch(`${BASE}/login`);
-  const html = await res.text();
-  const hasGoogle =
-    html.includes("Đăng nhập bằng Google") ||
-    html.includes("AuthGoogleButton") ||
-    html.includes("google");
-  const expectGoogle = isSupabaseConfigured();
-  record(
-    "Login page exposes Google sign-in when Supabase configured",
-    expectGoogle ? hasGoogle : true,
-    expectGoogle ? (hasGoogle ? "found" : "missing") : "skipped — demo mode",
-  );
+async function testAuthPagesUseEmailPassword() {
+  for (const path of ["/login", "/register"]) {
+    const res = await fetch(`${BASE}${path}`);
+    const html = await res.text();
+    const hasGoogle = /(?:Đăng nhập|Đăng ký) bằng Google/.test(html);
+    const hasPassword = html.includes('name="password"');
+    record(
+      `${path} exposes email/password without Google sign-in`,
+      res.ok && hasPassword && !hasGoogle,
+      `status=${res.status}, password=${hasPassword}, google=${hasGoogle}`,
+    );
+  }
 }
 
 async function main() {
@@ -181,7 +180,7 @@ async function main() {
   await testCallbackWithoutCode();
   await testCallbackPreservesNextQuery();
   await testDuplicateEmailBlocked();
-  await testLoginPageShowsGoogleWhenConfigured();
+  await testAuthPagesUseEmailPassword();
 
   const failed = results.filter((item) => !item.ok);
   console.log(`\n${results.length - failed.length}/${results.length} passed`);

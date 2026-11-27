@@ -6,7 +6,6 @@ import Link from "next/link";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 import { getAuthErrorMessage } from "@/lib/auth-messages";
 import { resolveOAuthNextPath } from "@/lib/google-oauth";
-import { AuthDivider, AuthGoogleButton } from "@/components/auth-google-button";
 import {
   DEMO_ONBOARDED_COOKIE,
   DEMO_PLATFORM_ADMIN_COOKIE,
@@ -129,8 +128,6 @@ export function AuthLoginForm({
 
   return (
     <div className="space-y-4">
-      <AuthGoogleButton nextPath={nextFromQuery} />
-      <AuthDivider />
       <form onSubmit={handleSubmit} className="space-y-4">
       {successMessage && (
         <p
